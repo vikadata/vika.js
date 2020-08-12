@@ -1,0 +1,51 @@
+{
+  "name": "@vikadata/vika",
+  "version": "0.0.1",
+  "description": "维格表官方 JavaScript SDK",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint lib/",
+    "start": "tsc -w",
+    "build": "tsc && webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikadata/vika.git"
+  },
+  "keywords": [
+    "vikadata",
+    "vika js sdk"
+  ],
+  "author": "vikadata",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vikadata/vika/issues"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "eslint"
+    }
+  },
+  "lint-staged": {
+    "packages/*/src/**/!(*system_config|strings).{js,ts,tsx}": "tslint"
+  },
+  "homepage": "https://github.com/vikadata/vika#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "eslint": "^7.6.0",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}

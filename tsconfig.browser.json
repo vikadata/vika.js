@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outFile": "./vika.browser.js",
+    "declaration": false,
+    "lib": [
+      "dom",
+      "es7"
+    ],
+  },
+}
