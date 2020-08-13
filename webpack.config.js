@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      isBrowserEnv: true,
+      isBundleForBrowser: true,
     })
   ],
   output: {

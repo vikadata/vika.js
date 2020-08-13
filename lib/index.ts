@@ -1,4 +1,4 @@
-declare const isBrowserEnv: boolean;
+declare const isBundleForBrowser: boolean;
 declare const window: any;
 
 export class Vika {
@@ -8,6 +8,6 @@ export class Vika {
 }
 
 // for vika.browser.js 在全局挂载 Vika 变量
-if (typeof isBrowserEnv !== "undefined") {
+if (typeof isBundleForBrowser !== "undefined") {
   window.Vika = Vika;
 }
