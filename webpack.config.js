@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 module.exports = {
   entry: './lib/index.ts',
+  mode: 'production',
   module: {
     rules: [
       {

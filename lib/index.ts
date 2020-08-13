@@ -3,7 +3,7 @@ declare const window: any;
 
 export class Vika {
   init() {
-    console.log('vika init!');
+    return 'vika init!';
   }
 }
 
