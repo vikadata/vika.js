@@ -12,11 +12,11 @@ npm install @vikadata/vika
 
 ## script 标签直接引入
 引入 vika.browser.js 之后 Vika 会直接挂载到 window 上
-```
+```html
 <script src="https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js"></script>
 <script>
 Vika.init({ token: "YOUR_DEVELOPER_TOKEN"})
-<script>
+</script>
 ```
 
 ## 快速入门
