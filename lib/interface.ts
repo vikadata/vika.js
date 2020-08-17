@@ -30,6 +30,8 @@ export interface IPaginateInfo<T> {
 
 export type IRecordPage = IPaginateInfo<IRecord[]>;
 
+export type IFindRecords = { records: IRecord[] };
+
 // HTTP 成功响应
 export interface IHttpSuccessResponse<T> {
   success: boolean;

@@ -58,7 +58,7 @@ datasheet.select({ viewName: "Bieber 的视图" })
 
 #### 全部加载: datasheet.all
 
-* SDK 一次性最多会加载 2000 个 Record。串行加载直到全部加载完毕。可以填写 maxRecords 参数来指定每次加载数量
+* SDK 一次性最多会加载 1000 个 Record。串行加载直到全部加载完毕。可以填写 maxRecords 参数来指定每次加载数量
 * 填写 viewId，获取指定视图中的 records，顺序与视图中保持一致。（推荐）
 * 如果不填写 viewId 的话，会获取这张维格表的全部内容（注意：此时返回的 records 是不保证顺序的）。
 
