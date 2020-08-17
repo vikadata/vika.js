@@ -15,7 +15,7 @@ module.exports = {
   },
   rules: {
     "quotes": [2, "single"],
-    "semi": 'always',
+    "semi": 2,
     "max-len": [2, 150],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

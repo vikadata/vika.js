@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc && webpack",
+    "build": "tsc -p tsconfig.build.json && webpack",
     "clean": "rm ./lib/*.js & rm ./lib/*.d.ts",
     "lint": "eslint lib/"
   },

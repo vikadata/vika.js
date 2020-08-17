@@ -13,7 +13,7 @@ export class Vika {
       throw new Error('请传入 Developer Token。(登陆 vika.cn 在左下角用户中心获取)');
     }
 
-    this.request = new Request(config)
+    this.request = new Request(config);
   }
 
   datasheet(datasheetId: string) {

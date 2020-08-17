@@ -1,4 +1,3 @@
-import { AxiosInstance } from 'axios';
 import { Select } from './select';
 import { Request, ISelectConfig } from './request';
 
@@ -12,6 +11,6 @@ export class Datasheet {
 
   async find(records: string[]) {
     const result = await this.request.find(this.datasheetId, records);
-    return result.data.data
+    return result.data.data;
   }
 }

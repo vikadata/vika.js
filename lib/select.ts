@@ -31,15 +31,15 @@ export class Select {
           const hasDone = total > pageNum * pageSize;
 
           // 页面加载完毕后，返回空的 nextPage 函数，防止越界调用
-          successCb(records, hasDone ? () => { } : fetchNextPage);
+          successCb(records, hasDone ? () => { return; } : fetchNextPage);
           hasDone && doneCb();
         }).catch(err => {
           doneCb(err);
-        })
-      }
+        });
+      };
 
       fetchNextPage();
-    }
+    };
   }
 
   eachPage(successCb: ISuccessCb, doneCb: IDoneCb) {
@@ -68,9 +68,9 @@ export class Select {
         if (err) {
           reject(err);
         } else {
-          resolve(records)
+          resolve(records);
         }
       });
-    })
+    });
   }
 }

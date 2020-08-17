@@ -1,8 +1,6 @@
 {
   "exclude": [
     "node_modules",
-    "**/*.d.ts",
-    "test/*.ts"
   ],
   "compilerOptions": {
     /* Basic Options */

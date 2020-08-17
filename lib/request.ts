@@ -1,4 +1,4 @@
-import { IHttpSuccessResponse, IRecordPage, IFindRecords } from "./interface";
+import { IHttpSuccessResponse, IRecordPage, IFindRecords } from './interface';
 import axios, { AxiosInstance } from 'axios';
 
 export interface ISortConfig { [fieldName: string]: 'asc' | 'desc' }
@@ -41,14 +41,14 @@ export class Request {
     });
 
     this.axios.interceptors.request.use(request => {
-      console.log('Starting Request', request)
-      return request
-    })
+      console.log('Starting Request', request);
+      return request;
+    });
 
     this.axios.interceptors.response.use(response => {
-      console.log('Response:', response)
-      return response
-    })
+      console.log('Response:', response);
+      return response;
+    });
   }
 
   records<T = IRecordPage>(datasheetId: string, params: ISelectConfig) {
@@ -56,7 +56,7 @@ export class Request {
       url: `/datasheets/${datasheetId}/records`,
       method: 'get',
       params,
-    })
+    });
   }
 
   find(datasheetId: string, recordIds: string[]) {
