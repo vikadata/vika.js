@@ -50,14 +50,16 @@ export class Select {
     fetchNextPage();
   }
 
-  firstPage(cb: (error: IHttpErrorResponse | null, records: IRecord[] | null) => void) {
-    this.eachPage(records => {
-      cb(null, records);
-    }, err => {
-      if (err) {
-        cb(err, null);
-      }
-    })
+  async firstPage() {
+    return new Promise((resolve, reject) => {
+      this.eachPage(records => {
+        resolve(records);
+      }, err => {
+        if (err) {
+          reject(err);
+        }
+      });
+    });
   }
 
   async all(): Promise<IRecord[] | IHttpErrorResponse> {
