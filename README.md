@@ -3,7 +3,7 @@
 # Vika
 Vika JavaScript SDK 是对维格表 Fusion API 的官方封装，可以很方便的对你的维格表中的数据进行增删改查操作。你可以轻松的将维格表中的数据集成到你自己的应用中。
 
-# 安装
+## 安装
 
 ## Npm
 ```
@@ -56,7 +56,11 @@ datasheet.select({ viewName: "Bieber 的视图" })
 
 ### 获取 Records
 
-全部数据: datasheet.all
+#### 全部加载: datasheet.all
+
+* SDK 一次性最多会加载 2000 个 Record。串行加载直到全部加载完毕。可以填写 maxRecords 参数来指定每次加载数量
+* 填写 viewId，获取指定视图中的 records，顺序与视图中保持一致。（推荐）
+* 如果不填写 viewId 的话，会获取这张维格表的全部内容（注意：此时返回的 records 是不保证顺序的）。
 
 ```jsx
 import { Vika } from 'vika-fusion-sdk';
@@ -66,35 +70,21 @@ Vika.init({ token: 'YOUR_DEVELOPER_TOKEN' });
 // 通过 datasheetId 来制定要从哪张维格表获取数据。
 const datasheet = Vika.datasheet('dstId');
 
-/* 获取维格表当前视图的所有数据。
- * SDK 一次性最多会加载 2000 个 Record。串行加载直到全部加载完毕。可以填写 maxRecords 参数来指定每次加载数量
- * 填写 viewName/viewId 获取指定视图中的 records，包括顺序。
- * 如果不填写 viewName/viewId 的话，会获取这张维格表的全部内容。
- */
-
-// 使用 async/await
-try {
-  const records = await datasheet.select({ viewName: "Bieber 的视图" }).all();
-} catch (err) {
-  console.error(err);
-}
-
-// 或者使用 promise
-datasheet.select({ viewName: "Bieber 的视图" }).all().then(records => {
+// all() 方法会返回 promise，你可以使用 then
+datasheet.select({ viewId: "viwXYZ" }).all().then(records => {
 }).catch(err => {
   console.error(err);
 });
+// ，也可以在 async 函数中使用 await。
 ```
 
-分页加载: datasheet.eachPage
+#### 分页加载: datasheet.eachPage
 
 ```jsx
 // 分页获取维格表当前视图所有数据
 datasheet.select({
-    // 每次最多加载 100 个 records
-    maxRecords: 10,
-    viewName: "Bieber 的视图" // Bieber 的视图
-		viewId: "viwXXX" // Bieber 的视图， id 和 name 都可以使用，二选一
+    pageSize: 100, // 每页 100 个
+		viewId: "viwXXX",
 }).eachPage((records, fetchNextPage) => {
     // 每加载一页 records，这个函数就会被调用一次
 
@@ -112,10 +102,14 @@ datasheet.select({
 });
 ```
 
-获取指定 records：datasheet.find
+#### 获取指定 records：datasheet.find
+
+传入 recordId 数组，即可获取对应的 records 信息，返回与传入数组长度相等的 records，如果 recordId 不存在，则数组中元素为 `null`
 
 ```jsx
-const records = datasheet.find(['recordId1', 'recordId2']);
-
-console.log(records);
+datasheet.find(['recId1', 'recId2']).then(records => {
+  console.log(records);
+}).catch(err => {
+  console.error(err);
+};
 ```
