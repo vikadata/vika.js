@@ -1,4 +1,4 @@
-import { IHttpSuccessResponse, IRecordPage, IFindRecords } from './interface';
+import { IHttpSuccessResponse, IRecordPage, IFindRecords, IRecord } from './interface';
 import axios, { AxiosInstance } from 'axios';
 
 export interface ISortConfig { [fieldName: string]: 'asc' | 'desc' }
@@ -41,31 +41,48 @@ export class Request {
     });
 
     this.axios.interceptors.request.use(request => {
-      console.log('Starting Request', request);
+      console.log('Starting Request', {
+        url: request.url,
+        params: request.params,
+        data: request.data,
+      });
       return request;
     });
 
     this.axios.interceptors.response.use(response => {
-      console.log('Response:', response);
+      console.log('Response:', response.data);
       return response;
     });
   }
 
-  records<T = IRecordPage>(datasheetId: string, params: ISelectConfig) {
+  private records<T>(config: {
+    datasheetId: string,
+    params?: ISelectConfig,
+    method: 'get' | 'post' | 'patch',
+    data?: { [key: string]: any },
+  }) {
+    const { datasheetId, params, method, data } = config;
     return this.axios.request<IHttpSuccessResponse<T>>({
       url: `/datasheets/${datasheetId}/records`,
-      method: 'get',
+      method,
       params,
+      data,
     });
   }
 
-  find(datasheetId: string, recordIds: string[]) {
-    if (recordIds.length > 1000) {
-      throw new Error('一次最多查询 1000 条 record');
-    }
+  getRecords<T = IRecordPage>(datasheetId: string, params: ISelectConfig) {
+    return this.records<T>({ datasheetId, params, method: 'get' });
+  }
 
-    return this.records<IFindRecords>(datasheetId, {
-      recordIds,
-    });
+  createRecords<T = IRecord[]>(datasheetId: string, records: IRecord[]) {
+    return this.records<T>({ datasheetId, data: { records }, method: 'post' });
+  }
+
+  updateRecords<T = IRecord[]>(datasheetId: string, records: IRecord[]) {
+    return this.records<T>({ datasheetId, data: { records }, method: 'post' });
+  }
+
+  find(datasheetId: string, recordIds: string[]) {
+    return this.getRecords<IFindRecords>(datasheetId, { recordIds });
   }
 }

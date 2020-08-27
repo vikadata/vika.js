@@ -5,45 +5,43 @@ export type ISuccessCb = (records: IRecord[], fetchNextPage: () => void) => void
 
 export type IDoneCb = (error?: IHttpErrorResponse) => void;
 
-const DEFAULT_PAGE_SIZE = 100;
+const DEFAULT_PAGE_SIZE = 1000;
 
 export class Select {
   constructor(public datasheetId: string, private request: Request, public config: ISelectConfig = {}) {
   }
 
-  private getEachPageFn(config: ISelectConfig) {
-    return (successCb: ISuccessCb, doneCb: IDoneCb) => {
-      let pageNum = 1;
-
-      const fetchNextPage = () => {
-        const params = Object.assign<ISelectConfig, ISelectConfig>({
-          pageSize: DEFAULT_PAGE_SIZE,
-          pageNum: pageNum++,
-        }, config);
-
-        this.request.records(this.datasheetId, params).then(result => {
-          if (!result.data.success) {
-            doneCb(result.data);
-            return;
-          }
-
-          const { total, pageNum, pageSize, records } = result.data.data;
-          const hasDone = total > pageNum * pageSize;
-
-          // 页面加载完毕后，返回空的 nextPage 函数，防止越界调用
-          successCb(records, hasDone ? () => { return; } : fetchNextPage);
-          hasDone && doneCb();
-        }).catch(err => {
-          doneCb(err);
-        });
-      };
-
-      fetchNextPage();
-    };
-  }
-
   eachPage(successCb: ISuccessCb, doneCb: IDoneCb) {
-    return this.getEachPageFn(this.config)(successCb, doneCb);
+    let pageNum = 1;
+
+    const fetchNextPage = () => {
+      const params = Object.assign<ISelectConfig, ISelectConfig>({
+        pageSize: DEFAULT_PAGE_SIZE,
+        pageNum: pageNum++,
+      }, this.config);
+
+      this.request.getRecords(this.datasheetId, params).then(result => {
+        if (!result.data.success) {
+          doneCb(result.data);
+          return;
+        }
+
+        const { total, pageNum, records } = result.data.data;
+        const hasDone = total <= pageNum * params.pageSize!;
+
+        // 页面加载完毕后，返回空的 nextPage 函数，防止越界调用
+        successCb(records, hasDone ? () => { return; } : fetchNextPage);
+        hasDone && doneCb();
+      }).catch(err => {
+        doneCb(err.response.data || {
+          success: false,
+          code: 500,
+          message: '服务器异常'
+        });
+      });
+    };
+
+    fetchNextPage();
   }
 
   async firstPage() {
@@ -58,12 +56,14 @@ export class Select {
     });
   }
 
-  async all(): Promise<IRecord[] | IHttpErrorResponse> {
+  async all(): Promise<IRecord[]> {
     return new Promise((resolve, reject) => {
       const records: IRecord[] = [];
+      this.config.pageSize = 50;
       // 加载全部数据时，以最大 pageSize 进行请求
-      this.getEachPageFn({ ...this.config, pageSize: 1000 })(pageRecords => {
+      this.eachPage((pageRecords, next) => {
         records.push(...pageRecords);
+        next();
       }, err => {
         if (err) {
           reject(err);

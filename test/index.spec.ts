@@ -3,13 +3,22 @@ import { Vika } from '../lib';
 env.config();
 
 describe('Vika init', () => {
-  it('hello world', async () => {
+  it('list records', async () => {
     const vika = new Vika({
       token: process.env.VIKA_API_TOKEN as string,
-      host: 'http://192.168.50.5:3333/fusion/v1/',
+      host: 'https://integration.vika.ltd/fusion/v1',
     });
-    const all = await vika.datasheet('dst5YcMPJj9Xbl99xZ').select().all();
-    console.log(all);
-    return true;
+    try {
+      const all = await vika.datasheet('dst5YcMPJj9Xbl99xZ').select().all();
+      console.log(all.length);
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  });
+
+  it('create records', async () => {
+    //
   });
 });
