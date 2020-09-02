@@ -1,9 +1,9 @@
-import { IHttpSuccessResponse, IRecordPage, IFindRecords, IRecord } from './interface';
+import qs from 'qs';
+import { IRecordPage, IFindRecords, IRecord, INewRecords, IHttpResponse, IRecordsResult } from './interface';
 import axios, { AxiosInstance } from 'axios';
-
 export interface ISortConfig { [fieldKey: string]: 'asc' | 'desc' }
 
-export interface ISelectConfig {
+export interface IGetRecordsConfig {
   pageSize?: number; // 指定每页返回的记录总数，缺省值为100。此参数只接受1-1000的整数
   maxRecords?: number; // 限制返回记录的最大总数量, 如果记录总数 total 大于此值，则会被限制为 maxRecords。
   pageNum?: number; // 指定分页的页码，与参数size配合使用，从 1 开始
@@ -40,12 +40,18 @@ export class Request {
           ...(typeof isBundleForBrowser !== 'undefined' ? { 'X-Vika-User-Agent:': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' }),
           Authorization: 'Bearer ' + config.token,
         }
+      },
+      paramsSerializer: params => {
+        // TODO: 支持更多种 stringify 配置
+        const result = qs.stringify(params, { arrayFormat: 'repeat' });
+        // console.log('paramsSerializer after', result);
+        return result;
       }
     });
 
     // this.axios.interceptors.request.use(request => {
-    //   console.log('Starting Request', {
-    //     url: request.url,  
+    //   console.log('Starting Request: ', request.method, {
+    //     url: request.url,
     //     params: request.params,
     //     data: request.data,
     //   });
@@ -58,23 +64,39 @@ export class Request {
     // });
   }
 
-  private records<T>(config: {
+  private async records<T>(config: {
     datasheetId: string,
-    params?: ISelectConfig,
+    params?: IGetRecordsConfig,
     method: 'get' | 'post' | 'patch' | 'delete',
     data?: { [key: string]: any },
-  }) {
+  }): Promise<IHttpResponse<T>> {
     const { datasheetId, params, method, data } = config;
-    return this.axios.request<IHttpSuccessResponse<T>>({
-      url: `/datasheets/${datasheetId}/records`,
-      method,
-      params,
-      data,
-    });
+
+    try {
+      return (await this.axios.request<IHttpResponse<T>>({
+        url: `/datasheets/${datasheetId}/records`,
+        method,
+        params,
+        data,
+      })).data;
+    } catch (e) {
+      const error = e?.response?.data;
+      return {
+        success: false,
+        code: error?.code,
+        message: error?.message,
+      };
+    }
   }
 
-  getRecords<T = IRecordPage>(datasheetId: string, params?: ISelectConfig) {
-    return this.records<T>({ datasheetId, params: { fieldKey: this.config.fieldKey, ...params }, method: 'get' });
+  async getRecords<T = IRecordPage>(datasheetId: string, params?: IGetRecordsConfig) {
+    const result = await this.records<T>({ datasheetId, params: { fieldKey: this.config.fieldKey, ...params }, method: 'get' });
+
+    if (!result.success) {
+      console.error('请求发生错误：', result);
+    }
+
+    return result;
   }
 
   findRecords(datasheetId: string, recordIds: string[], fieldKey?: 'name' | 'id') {
@@ -82,17 +104,17 @@ export class Request {
     return this.getRecords<IFindRecords>(datasheetId, { recordIds, fieldKey });
   }
 
-  createRecords<T = IRecord[]>(datasheetId: string, records: IRecord[], fieldKey?: 'name' | 'id') {
+  createRecords<T = IRecordsResult>(datasheetId: string, records: INewRecords[], fieldKey?: 'name' | 'id') {
     fieldKey = fieldKey || this.config.fieldKey;
     return this.records<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
   }
 
-  updateRecords<T = IRecord[]>(datasheetId: string, records: IRecord[], fieldKey?: 'name' | 'id') {
+  updateRecords<T = IRecordsResult>(datasheetId: string, records: IRecord[], fieldKey?: 'name' | 'id') {
     fieldKey = fieldKey || this.config.fieldKey;
     return this.records<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
   }
 
   delRecords<T = boolean>(datasheetId: string, recordIds: string[]) {
-    return this.records<T>({ datasheetId, data: { recordIds }, method: 'delete' });
+    return this.records<T>({ datasheetId, params: { recordIds }, method: 'delete' });
   }
 }

@@ -71,6 +71,8 @@
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
-    "axios": "^0.19.2"
+    "@types/qs": "^6.9.4",
+    "axios": "^0.19.2",
+    "qs": "^6.9.4"
   }
 }

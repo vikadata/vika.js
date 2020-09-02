@@ -1,5 +1,5 @@
-import { Request, ISelectConfig } from './request';
-import { IRecord } from './interface';
+import { Request, IGetRecordsConfig } from './request';
+import { IRecord, IHttpResponse, INewRecords } from './interface';
 import { wait } from './utils';
 
 const MAX_RECORD_SIZE = 1000;
@@ -9,7 +9,7 @@ export class Datasheet {
   constructor(public datasheetId: string, private request: Request) {
   }
 
-  async all(params?: Omit<ISelectConfig, 'pageSize' | 'pageNum'>) {
+  async all(params?: Omit<IGetRecordsConfig, 'pageSize' | 'pageNum'>): Promise<IHttpResponse<{ records: IRecord[] }>> {
     const allRecords: IRecord[] = [];
 
     let pageNum = 0;
@@ -23,32 +23,39 @@ export class Datasheet {
       });
       const timeGap = Date.now() - timeBegin;
 
-      console.log('time coast', timeGap);
       if (timeGap < MIN_TIME_GAP) {
         await wait(MIN_TIME_GAP);
       }
 
-      const { total, records } = result.data.data;
+      if (!result.success) {
+        return result;
+      }
+
+      const { total, records } = result.data;
 
       allRecords.push(...records);
 
       if (total <= pageNum * MAX_RECORD_SIZE) {
-        return allRecords;
+        return {
+          success: true,
+          code: 200,
+          message: '请求成功',
+          data: { records: allRecords },
+        };
       }
     }
   }
 
-  async get(params?: ISelectConfig) {
+  async get(params?: IGetRecordsConfig) {
     return await this.request.getRecords(this.datasheetId, params);
   }
 
-  async create(newRecords: IRecord[], fieldKey?: 'name' | 'id') {
+  async create(newRecords: INewRecords[], fieldKey?: 'name' | 'id') {
     return await this.request.createRecords(this.datasheetId, newRecords, fieldKey);
   }
 
   async find(records: string[], fieldKey?: 'name' | 'id') {
-    const result = await this.request.findRecords(this.datasheetId, records, fieldKey);
-    return result.data.data;
+    return await this.request.findRecords(this.datasheetId, records, fieldKey);
   }
 
   async del(recordIds: string[]) {

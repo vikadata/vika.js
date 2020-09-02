@@ -17,6 +17,18 @@ export interface IRecord {
   createdAt: number;
 }
 
+/**
+ *  将要新创建的 records
+ */
+export type INewRecords = Pick<IRecord, 'fields'>;
+
+/**
+ * 创建/更新 records 的返回结果
+ */
+export interface IRecordsResult {
+  records: IRecord[];
+}
+
 export interface IDeletedRecord {
   recordId: string,
   deleted: true
@@ -39,14 +51,17 @@ export type IFindRecords = { records: IRecord[] };
 
 // HTTP 成功响应
 export interface IHttpSuccessResponse<T> {
-  success: boolean;
+  success: true;
   code: number;
   message: string;
   data: T;
 }
 
-export interface IHttpErrorResponse {
-  success: boolean;
+export interface IHttpErrorResponse<T> {
+  success: false;
   code: number;
   message: string;
+  data?: T;
 }
+
+export type IHttpResponse<T = any> = IHttpSuccessResponse<T> | IHttpErrorResponse<T>;
