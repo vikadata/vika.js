@@ -2,6 +2,7 @@ import env from 'dotenv';
 import { Vika } from '../lib';
 env.config();
 
+jest.setTimeout(30000);
 describe('Vika init', () => {
   // 读取初始
   it('list records', async () => {
@@ -10,7 +11,7 @@ describe('Vika init', () => {
       host: 'https://integration.vika.ltd/fusion/v1',
     });
     try {
-      const all = await vika.datasheet('dstl5Chzvd50HC7kwH').select().all();
+      const all = await vika.datasheet('dstl5Chzvd50HC7kwH').all();
       console.log(all.length);
       return true;
     } catch (e) {

@@ -3,7 +3,7 @@ export type IFieldValueBase = number | string | boolean | { [key: string]: any }
 // 单元格 value 值类型
 export type IFieldValue = IFieldValueBase | IFieldValueBase[] | null;
 
-export type IFieldValueMap = { [fieldName: string]: IFieldValue };
+export type IFieldValueMap = { [fieldKey: string]: IFieldValue };
 
 export interface IRecord {
   recordId: string;
