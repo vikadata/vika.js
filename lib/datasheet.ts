@@ -14,6 +14,10 @@ export class Datasheet {
     return await this.request.createRecords(this.datasheetId, newRecords);
   }
 
+  async del(recordIds: string[]) {
+    return await this.request.delRecords(this.datasheetId, recordIds);
+  }
+
   async find(records: string[]) {
     const result = await this.request.find(this.datasheetId, records);
     return result.data.data;

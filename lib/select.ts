@@ -5,7 +5,7 @@ export type ISuccessCb = (records: IRecord[], fetchNextPage: () => void) => void
 
 export type IDoneCb = (error?: IHttpErrorResponse) => void;
 
-const DEFAULT_PAGE_SIZE = 1000;
+const DEFAULT_PAGE_SIZE = 100;
 
 export class Select {
   constructor(public datasheetId: string, private request: Request, public config: ISelectConfig = {}) {
@@ -59,7 +59,7 @@ export class Select {
   async all(): Promise<IRecord[]> {
     return new Promise((resolve, reject) => {
       const records: IRecord[] = [];
-      this.config.pageSize = 50;
+      this.config.pageSize = 1000;
       // 加载全部数据时，以最大 pageSize 进行请求
       this.eachPage((pageRecords, next) => {
         records.push(...pageRecords);

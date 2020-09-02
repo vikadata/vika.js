@@ -17,6 +17,11 @@ export interface IRecord {
   createdAt: number;
 }
 
+export interface IDeletedRecord {
+  recordId: string,
+  deleted: true
+}
+
 export interface IPaginateInfo<T> {
   // 总记录条数
   total: number;
