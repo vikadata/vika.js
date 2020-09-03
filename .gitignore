@@ -46,6 +46,7 @@ jspm_packages/
 .cache
 
 # output
+es
 dist
 lib/*.js
 lib/*.d.ts

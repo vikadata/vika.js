@@ -2,8 +2,8 @@ import { Request, IGetRecordsConfig } from './request';
 import { IRecord, IHttpResponse, INewRecords } from './interface';
 import { wait } from './utils';
 
-const MAX_RECORD_SIZE = 1000;
-const MIN_TIME_GAP = 200; // 最大并发量，1 秒 5 次请求
+export const MAX_RECORD_SIZE = 1000;
+export const MIN_TIME_GAP = 200; // 最大并发量，1 秒 5 次请求
 
 export class Datasheet {
   constructor(public datasheetId: string, private request: Request) {

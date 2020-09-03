@@ -2,11 +2,11 @@
   "name": "@vikadata/vika",
   "version": "0.0.1",
   "description": "维格表官方 JavaScript SDK",
-  "main": "./lib/index.js",
+  "main": "./es/index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc -p tsconfig.build.json && webpack",
-    "clean": "rm ./lib/*.js & rm ./lib/*.d.ts",
+    "build": "yarn clean && tsc -p tsconfig.build.json && webpack",
+    "clean": "rm ./es/*",
     "lint": "eslint lib/"
   },
   "repository": {
