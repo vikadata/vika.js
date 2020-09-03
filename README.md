@@ -7,7 +7,7 @@ Vika JavaScript SDK 是对维格表 Fusion API 的官方封装，可以很方便
 
 ## Npm
 ```
-npm install @vikadata/vika
+npm install @vikadata/vika -S
 ```
 
 ## script 标签直接引入
@@ -56,7 +56,7 @@ https://vika.cn/space/{spaceId}/workbench/{datasheetId}/{viewId}
 >SDK 会以最大值每次请求 1000 个 Record，串行加载直到表格全部加载完毕。
 
 ```js
-import { Vika } from 'vika-fusion-sdk';
+import { Vika } from '@vikadata/vika';
 
 Vika.init({ token: 'YOUR_DEVELOPER_TOKEN' });
 
@@ -235,7 +235,7 @@ const record1 = {
 
 ```js
 // update 接收一个数组值，可以同时更新多个 record，单次请求可最多更新10条 record
-datasheet.update([record1, record1]).then(response => {
+datasheet.update([record1, record2]).then(response => {
   /**
    * response 数据包括
    *   success: boolean
@@ -255,9 +255,9 @@ datasheet.update([record1, record1]).then(response => {
 请在根目录创建 .env 文件，并以依次写入:
 
 ```bash
-process.env.VIKA_API_TOKEN=YOUR TOKEN
-process.env.VIKA_API_HOST=YOUR HOST
-process.env.VIKA_API_DATASHEET=YOUR DATASHEET ID
+VIKA_API_TOKEN=YOUR TOKEN
+VIKA_API_HOST=YOUR HOST
+VIKA_API_DATASHEET=YOUR DATASHEET ID
 ```
 
 执行 `yarn test`
