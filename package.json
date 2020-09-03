@@ -13,6 +13,9 @@
     "type": "git",
     "url": "git+https://github.com/vikadata/vika.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "keywords": [
     "vikadata",
     "vika js sdk"
