@@ -71,9 +71,10 @@ export class Request {
     data?: { [key: string]: any },
   }): Promise<IHttpResponse<T>> {
     const { datasheetId, params, method, data } = config;
+    let result: IHttpResponse<T>;
 
     try {
-      return (await this.axios.request<IHttpResponse<T>>({
+      result = (await this.axios.request<IHttpResponse<T>>({
         url: `/datasheets/${datasheetId}/records`,
         method,
         params,
@@ -81,22 +82,22 @@ export class Request {
       })).data;
     } catch (e) {
       const error = e?.response?.data;
-      return {
+      result = {
         success: false,
         code: error?.code,
         message: error?.message,
       };
     }
-  }
-
-  async getRecords<T = IRecordPage>(datasheetId: string, params?: IGetRecordsConfig) {
-    const result = await this.records<T>({ datasheetId, params: { fieldKey: this.config.fieldKey, ...params }, method: 'get' });
 
     if (!result.success) {
       console.error('请求发生错误：', result);
     }
 
     return result;
+  }
+
+  getRecords<T = IRecordPage>(datasheetId: string, params?: IGetRecordsConfig) {
+    return this.records<T>({ datasheetId, params: { fieldKey: this.config.fieldKey, ...params }, method: 'get' });
   }
 
   findRecords(datasheetId: string, recordIds: string[], fieldKey?: 'name' | 'id') {
