@@ -50,9 +50,18 @@ declare const isBundleForBrowser: boolean;
 
 export interface IAuthConfig {
   token: string;
-  fieldKey?: 'name' | 'id'; // 指定 field 的查询和返回的 key。默认为 name 使用列名作为 key，指定为 id 时将以 fieldId 作为查询和返回方式（使用 id 可以避免列名的修改导致代码失效问题）
+  /**
+   * （选填）指定 field 的查询和返回的 key。默认使用列名  'name' 。指定为 'id' 时将以 fieldId 作为查询和返回方式（使用 id 可以避免列名的修改导致代码失效问题）
+   */
+  fieldKey?: 'name' | 'id';
+  /**
+   * （选填）请求失效时间，默认 60000ms (10 秒)
+   */
+  requestTimeout?: number;
+  /**
+   * （选填）目标服务器地址
+   */
   host?: string;
-  requestTimeout?: number; // 请求失效时间，默认10秒 (60000ms)
 }
 
 export const DEFAULT_HOST = 'https://api.vika.cn/fusion';
