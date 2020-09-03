@@ -13,8 +13,6 @@ export interface IRecord {
    * 只有当 record 某一列存在内容时，data 中才会有这一列的fieldId key
    */
   fields: IFieldValueMap;
-
-  createdAt: number;
 }
 
 /**
