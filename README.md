@@ -102,3 +102,15 @@ datasheet.find(['recId1', 'recId2']).then(records => {
   console.error(err);
 };
 ```
+
+## 单元测试
+请在根目录创建 .env 文件，并以依次写入:
+
+```bash
+process.env.VIKA_API_TOKEN=YOUR TOKEN
+process.env.VIKA_API_HOST=YOUR HOST
+process.env.VIKA_API_DATASHEET=YOUR DATASHEET ID
+```
+
+### 注意
+测试代码会对数据进行读写，请创建一张新的表用于测试

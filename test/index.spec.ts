@@ -8,8 +8,8 @@ jest.setTimeout(30000);
 describe('full pipeline', () => {
   const datasheet = new Vika({
     token: process.env.VIKA_API_TOKEN as string,
-    host: 'https://integration.vika.ltd/fusion/v1',
-  }).datasheet('dstWRpcsQstUnqX9hg');
+    host: process.env.VIKA_API_HOST as string || 'https://api.vika.cn/fusion/v1',
+  }).datasheet(process.env.VIKA_API_DATASHEET as string);
 
   let records: IRecord[];
 
@@ -18,38 +18,46 @@ describe('full pipeline', () => {
     console.time('list records');
     const result = await datasheet.all();
     console.timeEnd('list records');
+    console.log('list records ids', result.data?.records.map(r => r.recordId));
     expect(result.success).toBeTruthy();
     records = result.data!.records;
-    expect(records.length).toBeGreaterThan(0);
   });
 
-
+  // 删除所有 records
   it('delete records', async () => {
     console.time('delete records');
     const result = await datasheet.del(records.map(record => record.recordId));
     console.timeEnd('delete records');
 
-    console.log('delete result', result);
-
     expect(result.success).toBeTruthy();
     expect(result.data).toBeTruthy();
   });
 
+  // 删除所有 records
   it('add records', async () => {
     const recordsToAdd: INewRecords[] = [{
       fields: {
-        '标题': '测试标题 1',
-        '选项': '测试选项 1',
-      }
-    }, {
-      fields: {
-        '标题': '测试标题 2',
-        '选项': '测试选项 2',
+        '选项': ['测试选项1'],
       }
     }];
 
     console.time('add records');
     const result = await datasheet.create(recordsToAdd);
+    console.timeEnd('add records');
+
+    expect(result.success).toBeTruthy();
+    expect(result.data!.records.length).toEqual(recordsToAdd.length);
+  });
+
+  it('add records by fieldId', async () => {
+    const recordsToAdd: INewRecords[] = [{
+      fields: {
+        fldR0yRiFXQyh: ['测试选项 2'],
+      }
+    }];
+
+    console.time('add records');
+    const result = await datasheet.create(recordsToAdd, 'id');
     console.timeEnd('add records');
 
     expect(result.success).toBeTruthy();
