@@ -144,7 +144,7 @@ export class Request {
     return this.getRecords<IFindRecords>(datasheetId, { recordIds, fieldKey });
   }
 
-  createRecords<T = IRecordsResult>(datasheetId: string, records: INewRecords[], fieldKey?: 'name' | 'id') {
+  addRecords<T = IRecordsResult>(datasheetId: string, records: INewRecords[], fieldKey?: 'name' | 'id') {
     fieldKey = fieldKey || this.config.fieldKey;
     return this.records<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
   }

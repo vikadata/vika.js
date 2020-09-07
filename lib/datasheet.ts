@@ -50,8 +50,8 @@ export class Datasheet {
     return await this.request.getRecords(this.datasheetId, params);
   }
 
-  async create(newRecords: INewRecords[], fieldKey?: 'name' | 'id') {
-    return await this.request.createRecords(this.datasheetId, newRecords, fieldKey);
+  async add(newRecords: INewRecords[], fieldKey?: 'name' | 'id') {
+    return await this.request.addRecords(this.datasheetId, newRecords, fieldKey);
   }
 
   async find(records: string[], fieldKey?: 'name' | 'id') {

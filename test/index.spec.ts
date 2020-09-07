@@ -42,7 +42,7 @@ describe('full pipeline', () => {
     }];
 
     console.time('add records');
-    const result = await datasheet.create(recordsToAdd);
+    const result = await datasheet.add(recordsToAdd);
     console.timeEnd('add records');
 
     expect(result.success).toBeTruthy();
@@ -57,7 +57,7 @@ describe('full pipeline', () => {
     }];
 
     console.time('add records');
-    const result = await datasheet.create(recordsToAdd, 'id');
+    const result = await datasheet.add(recordsToAdd, 'id');
     console.timeEnd('add records');
 
     expect(result.success).toBeTruthy();

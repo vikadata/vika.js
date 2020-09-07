@@ -185,7 +185,7 @@ datasheet.find(['recordId1', 'recordId2']).then(response => {
 
 ### 创建 records
 首先构造好你要创建的 record 的结构。
-> fields 中的 key 默认为字段名。也可以通过 create 中的第二个参数 fieldKey 参数指定为 id
+> fields 中的 key 默认为字段名。也可以通过 add 方法中的第二个参数 fieldKey 参数指定为 id
 ```js
 const newRecord1 = {
   fields: {
@@ -199,8 +199,8 @@ const newRecord1 = {
 更详细的字段值示例请参照 [更友好的文档体验](#更友好的文档体验)
 
 ```js
-// create 接收一个数组值，可以同时创建多个 record
-datasheet.create([newRecord1, newRecord2]).then(response => {
+//  add 方法接收一个数组值，可以同时创建多个 record
+datasheet.add([newRecord1, newRecord2]).then(response => {
   /**
    * response 数据包括
    *   success: boolean
@@ -219,7 +219,7 @@ datasheet.create([newRecord1, newRecord2]).then(response => {
 
 ### 更新 records
 首先构造好你要修改的 record 的结构。对象 fields 包含一条记录中要新建的字段值，可以包含任意数量的字段值，不一定要包含全部字段。
-> 同上, fields 中的 key 默认为字段名。也可以通过 create 中的第二个参数 fieldKey 参数指定为 id
+> 同上, fields 中的 key 默认为字段名。也可以通过 update 方法中的第二个参数 fieldKey 参数指定为 id
 
 ***`特别注意：`*** update 只会更新你传入的 fields 下的数据，未传入的不会影响，如果需要清空值，请显示传入 null
 ```js

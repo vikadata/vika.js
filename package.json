@@ -1,6 +1,6 @@
 {
   "name": "@vikadata/vika",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "维格表官方 JavaScript SDK",
   "main": "./es/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/vikadata/vika.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "vikadata",
