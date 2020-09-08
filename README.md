@@ -199,7 +199,7 @@ const newRecord1 = {
 更详细的字段值示例请参照 [更友好的文档体验](#更友好的文档体验)
 
 ```js
-//  add 方法接收一个数组值，可以同时创建多个 record
+//  add 方法接收一个数组值，可以同时增加多条 record。单次请求可最多增加10条 record
 datasheet.add([newRecord1, newRecord2]).then(response => {
   /**
    * response 数据包括
@@ -234,7 +234,7 @@ const record1 = {
 更详细的字段值示例请参照 [更友好的文档体验](#更友好的文档体验)
 
 ```js
-// update 接收一个数组值，可以同时更新多个 record，单次请求可最多更新10条 record
+// update 方法接收一个数组值，可以同时更新多条 record，单次请求可最多更新10条 record
 datasheet.update([record1, record2]).then(response => {
   /**
    * response 数据包括
@@ -249,6 +249,28 @@ datasheet.update([record1, record2]).then(response => {
     console.error(response);
   }
 })
+```
+
+### 删除 records
+只需要知道 recordId 我们就可以对 record 进行删除操作
+
+```js
+// del 方法接收一个数组值，可以同时删除多条 record，单次请求可最多删除10条 record
+datasheet.del([recordId1, recordId2]).then(response => {
+  /**
+   * response 数据包括
+   *   success: boolean
+   *   code: number
+   *   message: string
+   *   data: true
+   */
+  if (response.success) {
+    console.log(response.data);
+  } else {
+    console.error(response);
+  }
+})
+
 ```
 
 ## 单元测试
