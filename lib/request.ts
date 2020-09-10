@@ -1,5 +1,6 @@
 import qs from 'qs';
-import { IRecordPage, IFindRecords, IRecord, INewRecords, IHttpResponse, IRecordsResult } from './interface';
+import FormData from 'form-data';
+import { IRecordPage, IFindRecords, IRecord, INewRecords, IHttpResponse, IRecordsResult, IAttachment } from './interface';
 import axios, { AxiosInstance } from 'axios';
 export interface ISortConfig { [fieldKey: string]: 'asc' | 'desc' }
 
@@ -88,36 +89,40 @@ export class Request {
       }
     });
 
-    // this.axios.interceptors.request.use(request => {
-    //   console.log('Starting Request: ', request.method, {
-    //     url: request.url,
-    //     params: request.params,
-    //     data: request.data,
-    //   });
-    //   return request;
-    // });
+    // open it for debug
+    this.axios.interceptors.request.use(request => {
+      console.log('Starting Request: ', request.method, {
+        url: request.url,
+        params: request.params,
+        data: request.data,
+      });
+      return request;
+    });
 
-    // this.axios.interceptors.response.use(response => {
-    //   console.log('Response:', response.data);
-    //   return response;
-    // });
+    this.axios.interceptors.response.use(response => {
+      console.log('Response:', response.data);
+      return response;
+    });
   }
 
-  private async records<T>(config: {
+  private async apiRequest<T>(config: {
+    apiName?: string,
     datasheetId: string,
     params?: IGetRecordsConfig,
     method: 'get' | 'post' | 'patch' | 'delete',
     data?: { [key: string]: any },
+    headers?: any;
   }): Promise<IHttpResponse<T>> {
-    const { datasheetId, params, method, data } = config;
+    const { apiName, datasheetId, params, method, data, headers } = config;
     let result: IHttpResponse<T>;
-
+    console.log({ config });
     try {
       result = (await this.axios.request<IHttpResponse<T>>({
-        url: `/datasheets/${datasheetId}/records`,
+        url: `/datasheets/${datasheetId}/${apiName || 'records'}`,
         method,
         params,
         data,
+        headers,
       })).data;
     } catch (e) {
       const error = e?.response?.data;
@@ -136,7 +141,7 @@ export class Request {
   }
 
   getRecords<T = IRecordPage>(datasheetId: string, params?: IGetRecordsConfig) {
-    return this.records<T>({ datasheetId, params: { fieldKey: this.config.fieldKey, ...params }, method: 'get' });
+    return this.apiRequest<T>({ datasheetId, params: { fieldKey: this.config.fieldKey, ...params }, method: 'get' });
   }
 
   findRecords(datasheetId: string, recordIds: string[], fieldKey?: 'name' | 'id') {
@@ -146,15 +151,21 @@ export class Request {
 
   addRecords<T = IRecordsResult>(datasheetId: string, records: INewRecords[], fieldKey?: 'name' | 'id') {
     fieldKey = fieldKey || this.config.fieldKey;
-    return this.records<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
+    return this.apiRequest<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
   }
 
   updateRecords<T = IRecordsResult>(datasheetId: string, records: IRecord[], fieldKey?: 'name' | 'id') {
     fieldKey = fieldKey || this.config.fieldKey;
-    return this.records<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
+    return this.apiRequest<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
   }
 
   delRecords<T = boolean>(datasheetId: string, recordIds: string[]) {
-    return this.records<T>({ datasheetId, params: { recordIds }, method: 'delete' });
+    return this.apiRequest<T>({ datasheetId, params: { recordIds }, method: 'delete' });
+  }
+
+  upload<T = IAttachment>(datasheetId: string, file: any) {
+    const form = new FormData();
+    form.append('file', file, { contentType: 'multipart/form-data' });
+    return this.apiRequest<T>({ apiName: 'attachments', datasheetId, data: form, method: 'post', headers: form.getHeaders() });
   }
 }

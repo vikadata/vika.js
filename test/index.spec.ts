@@ -1,6 +1,8 @@
 import env from 'dotenv';
+import fs from 'fs';
 import { Vika } from '../lib';
 import { IRecord, INewRecords } from '../lib/interface';
+import path from 'path';
 env.config();
 
 jest.setTimeout(30000);
@@ -62,5 +64,12 @@ describe('full pipeline', () => {
 
     expect(result.success).toBeTruthy();
     expect(result.data!.records.length).toEqual(recordsToAdd.length);
+  });
+
+  it.only('upload attachment', async () => {
+    const file = fs.createReadStream(path.join(__dirname, '../tsconfig.json'));
+
+    const uploadResult = await datasheet.upload(file);
+    expect(uploadResult).toBeTruthy();
   });
 });

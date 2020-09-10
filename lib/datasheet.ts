@@ -61,4 +61,12 @@ export class Datasheet {
   async del(recordIds: string[]) {
     return await this.request.delRecords(this.datasheetId, recordIds);
   }
+
+  async upload(file: any) {
+    // 每次只允许上传一个文件
+    if (Array.isArray(file)) {
+      file = file[0];
+    }
+    return await this.request.upload(this.datasheetId, file);
+  }
 }

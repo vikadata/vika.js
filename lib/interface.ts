@@ -21,6 +21,20 @@ export interface IRecord {
 export type INewRecords = Pick<IRecord, 'fields'>;
 
 /**
+ * 附件类型
+ */
+export interface IAttachment {
+  token: string; // 附件访问路径
+  name: string; // 附件原始名称
+  size: number; // 附件大小
+  width: number; // 附件宽
+  height: number; // 附件长
+  mimeType: string; // 附件类型
+  bucket: string; // 上传位置
+  preview?: string; // 预览图
+}
+
+/**
  * 创建/更新 records 的返回结果
  */
 export interface IRecordsResult {

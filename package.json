@@ -1,6 +1,6 @@
 {
   "name": "@vikadata/vika",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "维格表官方 JavaScript SDK",
   "main": "./es/index.js",
   "scripts": {
@@ -74,8 +74,10 @@
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "@types/form-data": "^2.5.0",
     "@types/qs": "^6.9.4",
     "axios": "^0.19.2",
+    "form-data": "^3.0.0",
     "qs": "^6.9.4"
   }
 }

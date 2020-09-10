@@ -270,7 +270,37 @@ datasheet.del([recordId1, recordId2]).then(response => {
     console.error(response);
   }
 })
+```
 
+### 上传附件
+当我们调用 datasheet.create 或者 datasheet.update 方法去给一个附件类型单元格写入内容的时候，需要先将附件文件通过 API 上传，再将得到的结果写入单元格中。
+data 中返回的数据，和附件类型单元格的数据是一致的，可以直接放进数组写入单元格里。
+
+> 一次只能上传一个文件，上传完毕后，请尽快写入data 中的数据到附件单元格里，否则附件链接可能失效
+```html
+<input id="input" name="file" type="file" accept="*" >
+```
+
+```js
+const input = document.getElementById('#input');
+input.onchange = function () {
+  const file = this.files[0];
+  // 浏览器中使用 input 元素得到文件。NodeJs 中可以传入一个 Buffer 或者 stream
+  datasheet.upload(file).then(response => {
+    /**
+     * response 数据包括
+     *   success: boolean
+     *   code: number
+     *   message: string
+     *   data: IAttachment
+     */
+    if (response.success) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
+  });
+};
 ```
 
 ## 单元测试
