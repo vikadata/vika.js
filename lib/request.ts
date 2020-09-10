@@ -90,19 +90,19 @@ export class Request {
     });
 
     // open it for debug
-    this.axios.interceptors.request.use(request => {
-      console.log('Starting Request: ', request.method, {
-        url: request.url,
-        params: request.params,
-        data: request.data,
-      });
-      return request;
-    });
+    // this.axios.interceptors.request.use(request => {
+    //   console.log('Starting Request: ', request.method, {
+    //     url: request.url,
+    //     params: request.params,
+    //     data: request.data,
+    //   });
+    //   return request;
+    // });
 
-    this.axios.interceptors.response.use(response => {
-      console.log('Response:', response.data);
-      return response;
-    });
+    // this.axios.interceptors.response.use(response => {
+    //   console.log('Response:', response.data);
+    //   return response;
+    // });
   }
 
   private async apiRequest<T>(config: {
@@ -115,7 +115,6 @@ export class Request {
   }): Promise<IHttpResponse<T>> {
     const { apiName, datasheetId, params, method, data, headers } = config;
     let result: IHttpResponse<T>;
-    console.log({ config });
     try {
       result = (await this.axios.request<IHttpResponse<T>>({
         url: `/datasheets/${datasheetId}/${apiName || 'records'}`,

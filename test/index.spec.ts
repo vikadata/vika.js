@@ -20,7 +20,6 @@ describe('full pipeline', () => {
     console.time('list records');
     const result = await datasheet.all();
     console.timeEnd('list records');
-    console.log('list records ids', result.data?.records.map(r => r.recordId));
     expect(result.success).toBeTruthy();
     records = result.data!.records;
   });
@@ -28,7 +27,7 @@ describe('full pipeline', () => {
   // 删除所有 records
   it('delete records', async () => {
     console.time('delete records');
-    const result = await datasheet.del(records.map(record => record.recordId));
+    const result = await datasheet.del(records.slice(0, 10).map(record => record.recordId));
     console.timeEnd('delete records');
 
     expect(result.success).toBeTruthy();
@@ -66,10 +65,10 @@ describe('full pipeline', () => {
     expect(result.data!.records.length).toEqual(recordsToAdd.length);
   });
 
-  it.only('upload attachment', async () => {
+  it('upload attachment', async () => {
     const file = fs.createReadStream(path.join(__dirname, '../tsconfig.json'));
 
-    const uploadResult = await datasheet.upload(file);
-    expect(uploadResult).toBeTruthy();
+    const result = await datasheet.upload(file);
+    expect(result).toBeTruthy();
   });
 });

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "yarn clean && tsc -p tsconfig.build.json && webpack",
+    "release": "yarn build & standard-version",
     "clean": "rm ./es/*",
     "lint": "eslint lib/"
   },
@@ -47,6 +48,7 @@
     "husky": "^4.2.5",
     "jest": "^26.4.0",
     "prettier": "^2.0.5",
+    "standard-version": "^9.0.0",
     "ts-jest": "^26.2.0",
     "ts-loader": "^8.0.2",
     "typescript": "^3.9.7",
