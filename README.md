@@ -16,7 +16,7 @@ npm install @vikadata/vika -S
 ```html
 <script src="https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js"></script>
 <script>
-Vika.init({ token: "YOUR_DEVELOPER_TOKEN"})
+Vika.init({ token: "YOUR_API_TOKEN"})
 </script>
 ```
 
@@ -24,13 +24,35 @@ Vika.init({ token: "YOUR_DEVELOPER_TOKEN"})
 我们提供了基于维格表自身数据生成的“动态文档”，访问 [vika.cn](https://vika.cn) 进入想要操作的表格，在表格工具栏的最右边有 API 按钮，点击后可以查看根据当前表格的数据类型量身定制的文档。选择语言 JavaScript 就可以呈现本 SDK 的调用示例
 
 ## 快速上手
-在执行所有操作之前，你需要使用自己的 Developer Token 来进行鉴权。以获得操作维格表的能力。访问 [vika.cn](https://vika.cn) 登陆后点击左下角的头像，选择个人中心就可以获取到
+在执行所有操作之前，你需要使用自己的 API Token 来进行鉴权。以获得操作维格表的能力。访问 [vika.cn](https://vika.cn) 登陆后点击左下角的头像，选择个人中心就可以获取到
 
-```jsx
+```js
 import { Vika } from '@vikadata/vika';
 
 Vika.init({
-  token: '你的 Developer Token'
+  token: '你的 API Token'
+});
+
+/**
+ * 全局参数配置
+ */
+Vika.init({
+  /**
+   * (必填) string 你的 API Token，用于鉴权
+   */
+  token: 'YOUR_API_TOKEN',
+  /**
+   * （选填）全局指定 field 的查询和返回的 key。默认使用列名  'name' 。指定为 'id' 时将以 fieldId 作为查询和返回方式（使用 id 可以避免列名的修改导致代码失效问题）
+   */
+  fieldKey: 'name', // 默认值
+  /**
+   * （选填）请求失效时间
+   */
+  requestTimeout: 60000, // 默认 60000ms (10 秒)
+  /**
+   * （选填）目标服务器地址
+   */
+  host: 'https://api.vika.cn/fusion', // 默认值
 });
 ```
 
@@ -58,7 +80,7 @@ https://vika.cn/space/{spaceId}/workbench/{datasheetId}/{viewId}
 ```js
 import { Vika } from '@vikadata/vika';
 
-Vika.init({ token: 'YOUR_DEVELOPER_TOKEN' });
+Vika.init({ token: 'YOUR_API_TOKEN' });
 
 // 通过 datasheetId 来指定要从哪张维格表获取数据。
 const datasheet = Vika.datasheet('datasheetId');
@@ -89,13 +111,13 @@ datasheet.all({
   /**
    * （选填）视图ID。默认为维格表中第一个视图。请求会返回视图中经过视图中筛选/排序后的结果，可以搭配使用fields参数过滤不需要的字段数据
    */
-  viewId: string,
+  viewId: 'viewId1',
   /**
    * （选填）对指定维格表的记录进行排序。由多个“排序对象”组成的数组。支持顺序：'asc' 和 逆序：'desc'。注：此参数指定的排序条件将会覆盖视图里的排序条件。
    */
   sort: [{ '列名称或者 ID': 'asc' }],
   /**
-   * （选填）记录ID数组。如果附带此参数，则返回指定IDs的记录数组。 返回值按照传入数组的顺序排序。此时无视筛选、排序。无分页，每次最多查询 1000 条
+   * （选填）recordIds 数组。如果附带此参数，则返回参数中指定的records数组。 返回值按照传入数组的顺序排序。此时无视筛选、排序。无分页，每次最多查询 1000 条
    */
   recordIds: ['recordId1', 'recordId2'],
   /**
@@ -126,7 +148,7 @@ datasheet.all({
 * 可以填写 pageSize 参数来指定分页大小，默认 100，最大 1000
 
 ```js
-// 分页获取维格表当前视图所有数据
+// 分页获取维格表当前视图数据
 datasheet.get({
   /**
    * （选填）指定分页的页码，默认为 1，与参数pageSize配合使用。
