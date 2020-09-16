@@ -8,7 +8,7 @@ env.config();
 jest.setTimeout(30000);
 
 describe('full pipeline', () => {
-  const datasheet = new Vika({
+  const datasheet = Vika.auth({
     token: process.env.VIKA_API_TOKEN as string,
     host: process.env.VIKA_API_HOST as string || 'https://api.vika.cn/fusion/v1',
   }).datasheet(process.env.VIKA_API_DATASHEET as string);

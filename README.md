@@ -16,7 +16,7 @@ npm install @vikadata/vika -S
 ```html
 <script src="https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js"></script>
 <script>
-Vika.init({ token: "YOUR_API_TOKEN"})
+Vika.auth({ token: "YOUR_API_TOKEN"})
 </script>
 ```
 
@@ -29,14 +29,14 @@ Vika.init({ token: "YOUR_API_TOKEN"})
 ```js
 import { Vika } from '@vikadata/vika';
 
-Vika.init({
+Vika.auth({
   token: '你的 API Token'
 });
 
 /**
  * 全局参数配置
  */
-Vika.init({
+Vika.auth({
   /**
    * (必填) string 你的 API Token，用于鉴权
    */
@@ -80,7 +80,7 @@ https://vika.cn/space/{spaceId}/workbench/{datasheetId}/{viewId}
 ```js
 import { Vika } from '@vikadata/vika';
 
-Vika.init({ token: 'YOUR_API_TOKEN' });
+Vika.auth({ token: 'YOUR_API_TOKEN' });
 
 // 通过 datasheetId 来指定要从哪张维格表获取数据。
 const datasheet = Vika.datasheet('datasheetId');
