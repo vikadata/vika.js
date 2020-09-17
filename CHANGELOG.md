@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/vikadata/vika/compare/v0.1.3...v0.1.5) (2020-09-17)
+
+
+### Bug Fixes
+
+* make class vika to static ([1cb8a7d](https://github.com/vikadata/vika/commit/1cb8a7d787c6ff44909db8dd7f2eae90ea35596f))
+
 ### [0.1.4](https://github.com/vikadata/vika/compare/v0.1.3...v0.1.4) (2020-09-17)
 
 
