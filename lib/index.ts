@@ -10,3 +10,5 @@ export * from './datasheet';
 if (typeof isBundleForBrowser !== 'undefined') {
   window.Vika = Vika;
 }
+
+export default Vika;

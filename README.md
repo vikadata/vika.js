@@ -26,6 +26,11 @@ Vika.auth({ token: "YOUR_API_TOKEN"})
 ## 快速上手
 在执行所有操作之前，你需要使用自己的 API Token 来进行鉴权。以获得操作维格表的能力。访问 [vika.cn](https://vika.cn) 登陆后点击左下角的头像，选择个人中心就可以获取到
 
+> 如果是在 Node.js 环境中，你可能不能使用 es6 import，可以使用下面方式来引入。
+```js
+const Vika = require('@vikadata/vika').default;
+```
+
 ```js
 import { Vika } from '@vikadata/vika';
 
