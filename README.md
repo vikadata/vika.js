@@ -30,7 +30,7 @@ Vika.auth({ token: "YOUR_API_TOKEN"})
 ```js
 const Vika = require('@vikadata/vika').default;
 ```
-
+以下是 es6 示例
 ```js
 import { Vika } from '@vikadata/vika';
 
