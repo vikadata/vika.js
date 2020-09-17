@@ -65,7 +65,7 @@ export interface IAuthConfig {
   host?: string;
 }
 
-export const DEFAULT_HOST = 'https://api.vika.cn/fusion';
+export const DEFAULT_HOST = 'https://api.vika.cn/fusion/v1';
 export const DEFAULT_REQUEST_TIMEOUT = 60000;
 
 export class Request {

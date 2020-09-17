@@ -57,7 +57,7 @@ Vika.auth({
   /**
    * （选填）目标服务器地址
    */
-  host: 'https://api.vika.cn/fusion', // 默认值
+  host: 'https://api.vika.cn/fusion/v1', // 默认值
 });
 ```
 
