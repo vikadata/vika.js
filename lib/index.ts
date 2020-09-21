@@ -7,7 +7,7 @@ export * from './request';
 export * from './datasheet';
 
 // for vika.browser.js 在全局挂载 Vika 变量
-if (typeof isBundleForBrowser !== 'undefined') {
+if (typeof isBundleForBrowser !== 'undefined' && typeof window === 'object') {
   window.Vika = Vika;
 }
 
