@@ -11,12 +11,12 @@ npm install @vikadata/vika -S
 ```
 
 ## script 标签直接引入
-下载 [https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js]()
-通过 script 引入 vika.browser.js 之后 Vika 会直接挂载到 window 上
+下载根目录里的 [vika.browser.js](https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js) 文件， 
+通过 script 引入之后 Vika 会直接挂载到 window 上
 ```html
 <script src="./vika.browser.js"></script>
 <script>
-Vika.auth({ token: "YOUR_API_TOKEN"})
+  Vika.auth({ token: "YOUR_API_TOKEN"});
 </script>
 ```
 
@@ -24,7 +24,7 @@ Vika.auth({ token: "YOUR_API_TOKEN"})
 我们提供了基于维格表自身数据生成的“动态文档”，访问 [vika.cn](https://vika.cn) 进入想要操作的表格，在表格工具栏的最右边有 API 按钮，点击后可以查看根据当前表格的数据类型量身定制的文档。选择语言 JavaScript 就可以呈现本 SDK 的调用示例
 
 ## 快速上手
-在执行所有操作之前，你需要使用自己的 API Token 来进行鉴权。以获得操作维格表的能力。访问 [vika.cn](https://vika.cn) 登陆后点击左下角的头像，选择个人中心就可以获取到
+在**执行所有操作之前**，你需要使用自己的 API Token 来进行鉴权。以获得操作维格表的能力。访问 [vika.cn](https://vika.cn) 登陆后点击左下角的头像，选择个人中心就可以获取到
 
 > 如果是在 Node.js 环境中，你可能不能使用 es6 import，可以使用下面方式来引入。
 ```js
@@ -37,10 +37,9 @@ import { Vika } from '@vikadata/vika';
 Vika.auth({
   token: '你的 API Token'
 });
-
-/**
- * 全局参数配置
- */
+```
+全局参数配置
+```js
 Vika.auth({
   /**
    * (必填) string 你的 API Token，用于鉴权
@@ -88,64 +87,63 @@ import { Vika } from '@vikadata/vika';
 Vika.auth({ token: 'YOUR_API_TOKEN' });
 
 // 通过 datasheetId 来指定要从哪张维格表获取数据。
-const datasheet = Vika.datasheet('datasheetId');
-
-// all() 方法会返回 promise，你可以根据需要使用 then 或者 async/await (推荐) 来获取收到的数据
-// params 为可选参数，下方有详细参数说明
-datasheet.all(params).then(response => {
-  
-  /**
-   * response 数据包括
-   *   success: boolean
-   *   code: number
-   *   message: string
-   *   data: array
-   */
-  if (response.success) {
-    console.log(response.data);
-  } else {
-    console.error(response);
-  }
-});
+Vika.datasheet('datasheetId')
+  // all() 方法会返回 promise，你可以根据需要使用 then 或者 async/await (推荐) 来获取收到的数据。params 为可选参数，下方有详细参数说明
+  .all(params)
+  .then(response => {
+    /**
+     * response 数据包括
+     *   success: boolean
+     *   code: number
+     *   message: string
+     *   data: array
+     */
+    if (response.success) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
+  });
 ```
 
 all 方法可以接收一个可选的配置参数对象，本 SDK 由 typescript 编写，所有配置的数据结构都可以从进入包中 d.ts 查阅。
 
 ```js
-datasheet.all({
-  /**
-   * （选填）视图ID。默认为维格表中第一个视图。请求会返回视图中经过视图中筛选/排序后的结果，可以搭配使用fields参数过滤不需要的字段数据
-   */
-  viewId: 'viewId1',
-  /**
-   * （选填）对指定维格表的记录进行排序。由多个“排序对象”组成的数组。支持顺序：'asc' 和 逆序：'desc'。注：此参数指定的排序条件将会覆盖视图里的排序条件。
-   */
-  sort: [{ '列名称或者 ID': 'asc' }],
-  /**
-   * （选填）recordIds 数组。如果附带此参数，则返回参数中指定的records数组。 返回值按照传入数组的顺序排序。此时无视筛选、排序。无分页，每次最多查询 1000 条
-   */
-  recordIds: ['recordId1', 'recordId2'],
-  /**
-   * （选填）指定要返回的字段（默认为字段名, 也可以通过 fieldKey 指定为字段 Id）。如果附带此参数，则返回的记录合集将会被过滤，只有指定的字段会返回。
-   */
-  fields: ['标题', '详情', '引用次数'],
-  /**
-   * （选填）使用公式作为筛选条件，返回匹配的记录，访问 https://vika.cn/help/tutorial-getting-started-with-formulas/ 了解公式使用方式
-   */
-  filterByFormula: '{引用次数} >  0',
-  /**
-   * （选填）限制返回记录的总数量。如果该值小于表中实际的记录总数，则返回的记录总数会被限制为该值。
-   */
-  maxRecords: 5000,
-  /**
-   * （选填）单元格值类型，默认为 'json'，指定为 'string' 时所有值都将被自动转换为 string 格式。
-   */
-  cellFormat: 'json',
-  /**
-   * （选填）指定 field 的查询和返回的 key。默认使用列名  'name' 。指定为 'id' 时将以 fieldId 作为查询和返回方式（使用 id 可以避免列名的修改导致代码失效问题）
-   */
-  fieldKey: 'name',
-});
+Vika.datasheet('datasheetId')
+  .all({
+    /**
+     * （选填）视图ID。默认为维格表中第一个视图。请求会返回视图中经过视图中筛选/排序后的结果，可以搭配使用fields参数过滤不需要的字段数据
+     */
+    viewId: 'viewId1',
+    /**
+     * （选填）对指定维格表的记录进行排序。由多个“排序对象”组成的数组。支持顺序：'asc' 和 逆序：'desc'。注：此参数指定的排序条件将会覆盖视图里的排序条件。
+     */
+    sort: [{ '列名称或者 ID': 'asc' }],
+    /**
+     * （选填）recordIds 数组。如果附带此参数，则返回参数中指定的records数组。 返回值按照传入数组的顺序排序。此时无视筛选、排序。无分页，每次最多查询 1000 条
+     */
+    recordIds: ['recordId1', 'recordId2'],
+    /**
+     * （选填）指定要返回的字段（默认为字段名, 也可以通过 fieldKey 指定为字段 Id）。如果附带此参数，则返回的记录合集将会被过滤，只有指定的字段会返回。
+     */
+    fields: ['标题', '详情', '引用次数'],
+    /**
+     * （选填）使用公式作为筛选条件，返回匹配的记录，访问 https://vika.cn/help/tutorial-getting-started-with-formulas/ 了解公式使用方式
+     */
+    filterByFormula: '{引用次数} >  0',
+    /**
+     * （选填）限制返回记录的总数量。如果该值小于表中实际的记录总数，则返回的记录总数会被限制为该值。
+     */
+    maxRecords: 5000,
+    /**
+     * （选填）单元格值类型，默认为 'json'，指定为 'string' 时所有值都将被自动转换为 string 格式。
+     */
+    cellFormat: 'json',
+    /**
+     * （选填）指定 field 的查询和返回的 key。默认使用列名  'name' 。指定为 'id' 时将以 fieldId 作为查询和返回方式（使用 id 可以避免列名的修改导致代码失效问题）
+     */
+    fieldKey: 'name',
+  });
 ```
 
 #### 分页加载: datasheet.get
@@ -154,39 +152,40 @@ datasheet.all({
 
 ```js
 // 分页获取维格表当前视图数据
-datasheet.get({
-  /**
-   * （选填）指定分页的页码，默认为 1，与参数pageSize配合使用。
-   */
-  pageNum: 1,
-  /**
-   * （选填）指定每页返回的记录总数，默认为100。此参数只接受1-1000的整数。
-   */
-  pageSize: 100,
-  // 其余参数与 datasheet.all() 相同
-}).then(response => {
-  /**
-   * response 数据包括
-   *   success: boolean
-   *   code: number
-   *   message: string
-   *   data: {
-   *     // 总记录条数
-   *    total: number;
-   *    // 每页返回的记录总数
-   *    pageSize: number;
-   *    // 分页的页码
-   *    pageNum: number;
-   *    // records 数组
-   *    records: Array;
-   *   }
-   */
-  if (response.success) {
-    console.log(response.data);
-  } else {
-    console.error(response);
-  }
-});
+Vika.datasheet('datasheetId')
+  .get({
+    /**
+     * （选填）指定分页的页码，默认为 1，与参数pageSize配合使用。
+     */
+    pageNum: 1,
+    /**
+     * （选填）指定每页返回的记录总数，默认为100。此参数只接受1-1000的整数。
+     */
+    pageSize: 100,
+    // 其余参数与 datasheet.all() 相同
+  }).then(response => {
+    /**
+     * response 数据包括
+     *   success: boolean
+     *   code: number
+     *   message: string
+     *   data: {
+     *     // 总记录条数
+     *    total: number;
+     *    // 每页返回的记录总数
+     *    pageSize: number;
+     *    // 分页的页码
+     *    pageNum: number;
+     *    // records 数组
+     *    records: Array;
+     *   }
+     */
+    if (response.success) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
+  }); //
 ```
 
 #### 获取指定 records：datasheet.find
@@ -194,20 +193,22 @@ datasheet.get({
 传入 recordId 数组，即可获取对应的 records 信息，返回与传入数组长度相等的 records
 
 ```js
-datasheet.find(['recordId1', 'recordId2']).then(response => {
-  /**
-   * response 数据包括
-   *   success: boolean
-   *   code: number
-   *   message: string
-   *   data: array
-   */
-  if (response.success) {
-    console.log(response.data);
-  } else {
-    console.error(response);
-  }
-})
+Vika.datasheet('datasheetId')
+  .find(['recordId1', 'recordId2'])
+  .then(response => {
+    /**
+     * response 数据包括
+     *   success: boolean
+     *   code: number
+     *   message: string
+     *   data: array
+     */
+    if (response.success) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
+  });
 ```
 
 ### 创建 records
@@ -227,20 +228,22 @@ const newRecord1 = {
 
 ```js
 //  add 方法接收一个数组值，可以同时增加多条 record。单次请求可最多增加10条 record
-datasheet.add([newRecord1, newRecord2]).then(response => {
-  /**
-   * response 数据包括
-   *   success: boolean
-   *   code: number
-   *   message: string
-   *   data: array
-   */
-  if (response.success) {
-    console.log(response.data);
-  } else {
-    console.error(response);
-  }
-})
+Vika.datasheet('datasheetId')
+  .add([newRecord1, newRecord2])
+  .then(response => {
+    /**
+     * response 数据包括
+     *   success: boolean
+     *   code: number
+     *   message: string
+     *   data: array
+     */
+    if (response.success) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
+  });
 ```
 
 
@@ -262,20 +265,22 @@ const record1 = {
 
 ```js
 // update 方法接收一个数组值，可以同时更新多条 record，单次请求可最多更新10条 record
-datasheet.update([record1, record2]).then(response => {
-  /**
-   * response 数据包括
-   *   success: boolean
-   *   code: number
-   *   message: string
-   *   data: array
-   */
-  if (response.success) {
-    console.log(response.data);
-  } else {
-    console.error(response);
-  }
-})
+Vika.datasheet('datasheetId')
+  .update([record1, record2])
+  .then(response => {
+    /**
+     * response 数据包括
+     *   success: boolean
+     *   code: number
+     *   message: string
+     *   data: array
+     */
+    if (response.success) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
+  });
 ```
 
 ### 删除 records
@@ -283,20 +288,22 @@ datasheet.update([record1, record2]).then(response => {
 
 ```js
 // del 方法接收一个数组值，可以同时删除多条 record，单次请求可最多删除10条 record
-datasheet.del([recordId1, recordId2]).then(response => {
-  /**
-   * response 数据包括
-   *   success: boolean
-   *   code: number
-   *   message: string
-   *   data: true
-   */
-  if (response.success) {
-    console.log(response.data);
-  } else {
-    console.error(response);
-  }
-})
+Vika.datasheet('datasheetId')
+  .del([recordId1, recordId2])
+  .then(response => {
+    /**
+     * response 数据包括
+     *   success: boolean
+     *   code: number
+     *   message: string
+     *   data: true
+     */
+    if (response.success) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
+  });
 ```
 
 ### 上传附件
@@ -313,20 +320,22 @@ const input = document.getElementById('input');
 input.onchange = function () {
   const file = this.files[0];
   // 浏览器中使用 input 元素得到文件。NodeJs 中可以传入一个 Buffer 或者 stream
-  datasheet.upload(file).then(response => {
-    /**
-     * response 数据包括
-     *   success: boolean
-     *   code: number
-     *   message: string
-     *   data: IAttachment
-     */
-    if (response.success) {
-      console.log(response.data);
-    } else {
-      console.error(response);
-    }
-  });
+  Vika.datasheet('datasheetId')
+    .upload(file)
+    .then(response => {
+      /**
+       * response 数据包括
+       *   success: boolean
+       *   code: number
+       *   message: string
+       *   data: IAttachment
+       */
+      if (response.success) {
+        console.log(response.data);
+      } else {
+        console.error(response);
+      }
+    });
 };
 ```
 
