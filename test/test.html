@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vika Browser Test</title>
+  <script src="../vika.browser.js"></script>
+</head>
+
+<body>
+  <pre><code id="V_CODE"></code></pre>
+  <script>
+    Vika.auth({ token: "your api token" });
+    Vika.datasheet('datasheet id').all().then(r => {
+      document.getElementById('V_CODE').innerText = JSON.stringify(r, null, 2);
+    });
+  </script>
+</body>
+
+</html>

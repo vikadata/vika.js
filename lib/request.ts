@@ -77,7 +77,7 @@ export class Request {
       timeout: config.requestTimeout || DEFAULT_REQUEST_TIMEOUT,
       headers: {
         common: {
-          ...(typeof isBundleForBrowser !== 'undefined' ? { 'X-Vika-User-Agent:': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' }),
+          ...(typeof isBundleForBrowser !== 'undefined' ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' }),
           Authorization: 'Bearer ' + config.token,
         }
       },
@@ -124,11 +124,11 @@ export class Request {
         headers,
       })).data;
     } catch (e) {
-      const error = e?.response?.data;
+      const error = e?.response?.data || e;
       result = {
         success: false,
-        code: error?.code,
-        message: error?.message,
+        code: error?.code || 500,
+        message: error?.message || '请求参数配置错误',
       };
     }
 

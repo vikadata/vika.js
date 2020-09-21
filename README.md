@@ -11,10 +11,10 @@ npm install @vikadata/vika -S
 ```
 
 ## script 标签直接引入
-引入 vika.browser.js 之后 Vika 会直接挂载到 window 上
-> 本示例地址是引用的 github 上的地址，建议生产环境将代码下载到本地引用
+下载 [https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js]()
+通过 script 引入 vika.browser.js 之后 Vika 会直接挂载到 window 上
 ```html
-<script src="https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js"></script>
+<script src="./vika.browser.js"></script>
 <script>
 Vika.auth({ token: "YOUR_API_TOKEN"})
 </script>
