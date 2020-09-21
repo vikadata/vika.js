@@ -164,7 +164,12 @@ export class Request {
 
   upload<T = IAttachment>(datasheetId: string, file: any) {
     const form = new FormData();
-    form.append('file', file, { contentType: 'multipart/form-data' });
-    return this.apiRequest<T>({ apiName: 'attachments', datasheetId, data: form, method: 'post', headers: form.getHeaders() });
+    form.append('file', file);
+    return this.apiRequest<T>({
+      apiName: 'attachments', datasheetId, data: form, method: 'post', headers: {
+        'Content-Type': 'multipart/form-data',
+        ...(form.getHeaders ? form.getHeaders() : {}),
+      }
+    });
   }
 }

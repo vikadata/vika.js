@@ -309,7 +309,7 @@ data 中返回的数据，和附件类型单元格的数据是一致的，可以
 ```
 
 ```js
-const input = document.getElementById('#input');
+const input = document.getElementById('input');
 input.onchange = function () {
   const file = this.files[0];
   // 浏览器中使用 input 元素得到文件。NodeJs 中可以传入一个 Buffer 或者 stream
