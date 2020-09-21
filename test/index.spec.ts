@@ -85,7 +85,10 @@ describe('full pipeline', () => {
   it('upload attachment', async () => {
     const file = fs.createReadStream(path.join(__dirname, '../tsconfig.json'));
 
+    console.time('upload attachment');
     const result = await datasheet.upload(file);
+    console.timeEnd('upload attachment');
+
     expect(result.success).toBeTruthy();
   });
 });

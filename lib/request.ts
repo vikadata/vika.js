@@ -112,11 +112,13 @@ export class Request {
     method: 'get' | 'post' | 'patch' | 'delete',
     data?: { [key: string]: any },
     headers?: any;
+    timeout?: number;
   }): Promise<IHttpResponse<T>> {
-    const { apiName, datasheetId, params, method, data, headers } = config;
+    const { apiName, datasheetId, params, method, data, headers, timeout } = config;
     let result: IHttpResponse<T>;
     try {
       result = (await this.axios.request<IHttpResponse<T>>({
+        timeout,
         url: `/datasheets/${datasheetId}/${apiName || 'records'}`,
         method,
         params,
@@ -166,10 +168,15 @@ export class Request {
     const form = new FormData();
     form.append('file', file);
     return this.apiRequest<T>({
-      apiName: 'attachments', datasheetId, data: form, method: 'post', headers: {
+      timeout: this.config.requestTimeout || DEFAULT_REQUEST_TIMEOUT * 10, // 上传相应时间放宽到 100 秒
+      apiName: 'attachments',
+      datasheetId,
+      data: form,
+      method: 'post',
+      headers: {
         'Content-Type': 'multipart/form-data',
         ...(form.getHeaders ? form.getHeaders() : {}),
-      }
+      },
     });
   }
 }
