@@ -34,20 +34,37 @@ describe('full pipeline', () => {
     expect(result.data).toBeTruthy();
   });
 
-  // 删除所有 records
+  // 增加 records
   it('add records', async () => {
     const recordsToAdd: INewRecords[] = [{
       fields: {
-        '选项': ['测试选项1'],
+        '标题': '一行新增的记录' + (new Date).toString(),
       }
     }];
 
     console.time('add records');
     const result = await datasheet.add(recordsToAdd);
     console.timeEnd('add records');
-
+    records = result.data!.records;
     expect(result.success).toBeTruthy();
     expect(result.data!.records.length).toEqual(recordsToAdd.length);
+  });
+
+  // 删除所有 records
+  it('update records', async () => {
+    const recordsToUpdate: IRecord[] = [{
+      recordId: records[0].recordId,
+      fields: {
+        '标题': '一行被修改的记录' + (new Date).toString(),
+      }
+    }];
+
+    console.time('update records');
+    const result = await datasheet.update(recordsToUpdate);
+    console.timeEnd('update records');
+
+    expect(result.success).toBeTruthy();
+    expect(result.data!.records.length).toEqual(recordsToUpdate.length);
   });
 
   it('add records by fieldId', async () => {
@@ -69,6 +86,6 @@ describe('full pipeline', () => {
     const file = fs.createReadStream(path.join(__dirname, '../tsconfig.json'));
 
     const result = await datasheet.upload(file);
-    expect(result).toBeTruthy();
+    expect(result.success).toBeTruthy();
   });
 });

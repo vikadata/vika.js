@@ -54,6 +54,10 @@ export class Datasheet {
     return await this.request.addRecords(this.datasheetId, newRecords, fieldKey);
   }
 
+  async update(records: IRecord[], fieldKey?: 'name' | 'id') {
+    return await this.request.updateRecords(this.datasheetId, records, fieldKey);
+  }
+
   async find(records: string[], fieldKey?: 'name' | 'id') {
     return await this.request.findRecords(this.datasheetId, records, fieldKey);
   }
