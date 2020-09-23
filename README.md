@@ -21,7 +21,10 @@ npm install @vikadata/vika -S
 ```
 
 ## 更友好的文档体验
+
 我们提供了基于维格表自身数据生成的“动态文档”，访问 [vika.cn](https://vika.cn) 进入想要操作的表格，在表格工具栏的最右边有 API 按钮，点击后可以查看根据当前表格的数据类型量身定制的文档。选择语言 JavaScript 就可以呈现本 SDK 的调用示例
+
+![一键API文档](docs/screenshot-api.gif)
 
 ## 快速上手
 在**执行所有操作之前**，你需要使用自己的 API Token 来进行鉴权。以获得操作维格表的能力。访问 [vika.cn](https://vika.cn) 登陆后点击左下角的头像，选择个人中心就可以获取到
