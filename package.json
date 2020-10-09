@@ -1,6 +1,6 @@
 {
   "name": "@vikadata/vika",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "维格表官方 JavaScript SDK",
   "main": "./es/index.js",
   "scripts": {

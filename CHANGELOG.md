@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/vikadata/vika.js/compare/v0.1.6...v0.1.7) (2020-10-09)
+
+
+### Features
+
+* allowed upload method have longer timeout ([204deeb](https://github.com/vikadata/vika.js/commit/204deeb66ee9132947d0d859759891ab5bb865cd))
+
+
+### Bug Fixes
+
+* an illegal header has been set in browser ([f5fa8f7](https://github.com/vikadata/vika.js/commit/f5fa8f747718ce8128122a530a7ff8ab24df5569))
+* check if window exist ([dd30ed1](https://github.com/vikadata/vika.js/commit/dd30ed1b8dccb1dccd2eabbf121c232a66285986))
+* file upload error in browser ([c292b2f](https://github.com/vikadata/vika.js/commit/c292b2fd10eff4fcc00fe20141c420fa270757f1))
+* update api send a wrong http method ([84e6ce4](https://github.com/vikadata/vika.js/commit/84e6ce48eb4238d715685f0392788f7d65be15f0))
+* wrong link for vika.browser.js ([f732b35](https://github.com/vikadata/vika.js/commit/f732b35e207939ab4cf527eb78c18135f72fee3b))
+
 ### [0.1.6](https://github.com/vikadata/vika/compare/v0.1.3...v0.1.6) (2020-09-21)
 
 
