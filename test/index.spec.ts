@@ -31,7 +31,6 @@ describe('full pipeline', () => {
     console.timeEnd('delete records');
 
     expect(result.success).toBeTruthy();
-    expect(result.data).toBeTruthy();
   });
 
   // 增加 records
@@ -50,7 +49,7 @@ describe('full pipeline', () => {
     expect(result.data!.records.length).toEqual(recordsToAdd.length);
   });
 
-  // 删除所有 records
+  // 更新 records
   it('update records', async () => {
     const recordsToUpdate: IRecord[] = [{
       recordId: records[0].recordId,
@@ -65,6 +64,9 @@ describe('full pipeline', () => {
 
     expect(result.success).toBeTruthy();
     expect(result.data!.records.length).toEqual(recordsToUpdate.length);
+    const all = await datasheet.all();
+    // 长度应该跟原表保持一致
+    expect(all.data!.records.length).toEqual(records.length);
   });
 
   it('add records by fieldId', async () => {

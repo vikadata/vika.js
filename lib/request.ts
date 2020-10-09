@@ -157,10 +157,10 @@ export class Request {
 
   updateRecords<T = IRecordsResult>(datasheetId: string, records: IRecord[], fieldKey?: 'name' | 'id') {
     fieldKey = fieldKey || this.config.fieldKey;
-    return this.apiRequest<T>({ datasheetId, data: { records, fieldKey }, method: 'post' });
+    return this.apiRequest<T>({ datasheetId, data: { records, fieldKey }, method: 'patch' });
   }
 
-  delRecords<T = boolean>(datasheetId: string, recordIds: string[]) {
+  delRecords<T = undefined>(datasheetId: string, recordIds: string[]) {
     return this.apiRequest<T>({ datasheetId, params: { recordIds }, method: 'delete' });
   }
 
