@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/vikadata/vika.js/compare/v0.1.7...v0.1.8) (2021-01-08)
+
+
+### Bug Fixes
+
+* sort params error, return 400 ([005db96](https://github.com/vikadata/vika.js/commit/005db9679b857ac6209418d96912b444a817c73c))
+
 ### [0.1.7](https://github.com/vikadata/vika.js/compare/v0.1.6...v0.1.7) (2020-10-09)
 
 
