@@ -2,7 +2,7 @@ import qs from 'qs';
 import FormData from 'form-data';
 import { IRecordPage, IFindRecords, IRecord, INewRecords, IHttpResponse, IRecordsResult, IAttachment } from './interface';
 import axios, { AxiosInstance } from 'axios';
-export interface ISortConfig { [fieldKey: string]: 'asc' | 'desc' }
+export interface ISortConfig { field: string, order: 'asc' | 'desc' }
 
 export interface IGetRecordsConfig {
   /**
@@ -83,7 +83,7 @@ export class Request {
       },
       paramsSerializer: params => {
         // TODO: 支持更多种 stringify 配置
-        const result = qs.stringify(params, { arrayFormat: 'repeat' });
+        const result = qs.stringify(params, { arrayFormat: 'brackets' });
         // console.log('paramsSerializer after', result);
         return result;
       }
