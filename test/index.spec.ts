@@ -18,8 +18,11 @@ describe('full pipeline', () => {
   // 读取初始
   it('list records', async () => {
     console.time('list records');
-    const result = await datasheet.all();
+    const result = await datasheet.all({ sort: [{ field: '标题', order: 'desc' }] });
     console.timeEnd('list records');
+    if (!result.success) {
+      console.error(result);
+    }
     expect(result.success).toBeTruthy();
     records = result.data!.records;
   });
@@ -79,7 +82,6 @@ describe('full pipeline', () => {
     console.time('add records');
     const result = await datasheet.add(recordsToAdd, 'id');
     console.timeEnd('add records');
-
     expect(result.success).toBeTruthy();
     expect(result.data!.records.length).toEqual(recordsToAdd.length);
   });
