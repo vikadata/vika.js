@@ -47,7 +47,7 @@ export interface IGetRecordsConfig {
   fieldKey?: 'name' | 'id';
 }
 
-declare const isBundleForBrowser: boolean;
+declare const window: any;
 
 export interface IAuthConfig {
   token: string;
@@ -77,7 +77,7 @@ export class Request {
       timeout: config.requestTimeout || DEFAULT_REQUEST_TIMEOUT,
       headers: {
         common: {
-          ...(typeof isBundleForBrowser !== 'undefined' ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' }),
+          ...(typeof window !== 'undefined' ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' }),
           Authorization: 'Bearer ' + config.token,
         }
       },
