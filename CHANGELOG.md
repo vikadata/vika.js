@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/vikadata/vika.js/compare/v0.1.8...v0.1.9) (2021-02-08)
+
+
+### Features
+
+* update vika.browser.js ([6f87f12](https://github.com/vikadata/vika.js/commit/6f87f12eb5aeda5a56f3a02e2dd8220c6da24833))
+
+
+### Bug Fixes
+
+* sdk shouldn't set user-agent in broswer ([829d001](https://github.com/vikadata/vika.js/commit/829d001c2a42f78f08204ee1b72c2f3d438798cb))
+
 ### [0.1.8](https://github.com/vikadata/vika.js/compare/v0.1.7...v0.1.8) (2021-01-08)
 
 
