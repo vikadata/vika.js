@@ -50,3 +50,6 @@ es
 dist
 lib/*.js
 lib/*.d.ts
+
+# Jetbrain IDEA
+.idea
