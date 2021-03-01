@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - 12
+
+notifications:
+  email:
+    recipients:
+      - dengguiheng@vikadata.com
+      - dev@vikadata.com
+    on_success: change
+    on_failure: always
