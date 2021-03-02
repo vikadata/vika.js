@@ -20,7 +20,8 @@ env:
 
 deploy:
   - skip_cleanup: true
-    provider: script
-    script: bash .ci/publish.sh
+    provider: npm
+    email: "$NPM_EMAIL"
+    api_key: "$NPM_TOKEN"
     on:
-      branch: devops
+      tags: true
