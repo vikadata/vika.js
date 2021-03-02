@@ -72,20 +72,6 @@ describe('full pipeline', () => {
     expect(all.data!.records.length).toEqual(records.length);
   });
 
-  it('add records by fieldId', async () => {
-    const recordsToAdd: INewRecords[] = [{
-      fields: {
-        fldR0yRiFXQyh: ['测试选项 2'],
-      }
-    }];
-
-    console.time('add records');
-    const result = await datasheet.add(recordsToAdd, 'id');
-    console.timeEnd('add records');
-    expect(result.success).toBeTruthy();
-    expect(result.data!.records.length).toEqual(recordsToAdd.length);
-  });
-
   it('upload attachment', async () => {
     const file = fs.createReadStream(path.join(__dirname, '../tsconfig.json'));
 
