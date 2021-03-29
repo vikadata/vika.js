@@ -25,7 +25,8 @@ module.exports = {
     })
   ],
   output: {
-    filename: 'vika.browser.js',
+    libraryTarget: 'umd',
+    filename: './dist/vika.umd.js',
     path: __dirname,
   },
 };

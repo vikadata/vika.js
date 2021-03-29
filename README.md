@@ -19,10 +19,10 @@ npm install @vikadata/vika -S
 ```
 
 ## script 标签直接引入
-下载根目录里的 [vika.browser.js](https://raw.githubusercontent.com/vikadata/vika/master/vika.browser.js) 文件， 
+下载 dist 目录里的 [vika.umd.js](https://raw.githubusercontent.com/vikadata/vika/master/dist/vika.umd.js) 文件， 
 通过 script 引入之后 Vika 会直接挂载到 window 上
 ```html
-<script src="./vika.browser.js"></script>
+<script src="./vika.umd.js"></script>
 <script>
   Vika.auth({ token: "YOUR_API_TOKEN"});
 </script>
