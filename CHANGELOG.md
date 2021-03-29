@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/vikadata/vika.js/compare/v0.1.9...v0.1.10) (2021-03-29)
+
+
+### Features
+
+* add ci ([ba23484](https://github.com/vikadata/vika.js/commit/ba23484e1131060f7f791bc8b670ef7d1e0dde5d))
+* ci test branches ([6c8d2f5](https://github.com/vikadata/vika.js/commit/6c8d2f57c4e22ab8d53776af5e37593323c68606))
+* ci update ([ef133d9](https://github.com/vikadata/vika.js/commit/ef133d9c8588d65a1ea43d9ff581e616b8cd7f8a))
+* ci variables should be secure ([401d4fd](https://github.com/vikadata/vika.js/commit/401d4fd0e439869a9dbd08b31a90f10467868c0f))
+* delete .ci folder ([add4cd8](https://github.com/vikadata/vika.js/commit/add4cd82edadc9253771a0106b5fbb6d38c1e376))
+* encrypt variables ([9a4d470](https://github.com/vikadata/vika.js/commit/9a4d470b9e8400186433c207e27920eaf238d5cf))
+* jest test variables secure ([d8cfa2b](https://github.com/vikadata/vika.js/commit/d8cfa2b062e3650aa43513cea56af1d03787e560))
+* test deploy ([e86fcd5](https://github.com/vikadata/vika.js/commit/e86fcd590cd9686864f59ebab8234425b6cb588c))
+* test script ([96be781](https://github.com/vikadata/vika.js/commit/96be7816c63f95c76f1c767cb0d08c2588e92c25))
+* test shell script ([b7303c7](https://github.com/vikadata/vika.js/commit/b7303c7b795d3475c6a64dc4341a7a38817ba5c9))
+* test shell script ([aafaeb8](https://github.com/vikadata/vika.js/commit/aafaeb868bb91d67a02087f02a7e531d4e62aeb8))
+* update gitignore ([d555fea](https://github.com/vikadata/vika.js/commit/d555feabc58b6c0032e462ef2362e87f535dc2e7))
+* update README.md ([1949c5b](https://github.com/vikadata/vika.js/commit/1949c5be619b4480501cc8334b06c2457e0a3618))
+* update README.md ([f8c64fb](https://github.com/vikadata/vika.js/commit/f8c64fb8ff4268aa23e9cd029f8c7df4b7018299))
+* update vika.browser.js ([ec5b9f8](https://github.com/vikadata/vika.js/commit/ec5b9f888ab235b29094ea6e4d17afc962b36b28))
+
 ### [0.1.9](https://github.com/vikadata/vika.js/compare/v0.1.8...v0.1.9) (2021-02-08)
 
 
