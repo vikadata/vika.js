@@ -47,7 +47,7 @@ jspm_packages/
 
 # output
 es
-dist
+# dist
 lib/*.js
 lib/*.d.ts
 
