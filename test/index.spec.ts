@@ -27,6 +27,15 @@ describe('full pipeline', () => {
     records = result.data!.records;
   });
 
+  it('find empty records', async () => {
+    const result = await datasheet.find([]);
+    if (!result.success) {
+      console.error(result);
+    }
+    expect(result.success).toBeTruthy();
+    expect(result.message).toBe('请求被忽略');
+  });
+
   // 删除所有 records
   it('delete records', async () => {
     console.time('delete records');

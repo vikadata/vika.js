@@ -147,6 +147,19 @@ export class Request {
 
   findRecords(datasheetId: string, recordIds: string[], fieldKey?: 'name' | 'id') {
     fieldKey = fieldKey || this.config.fieldKey;
+    // 空数组不执行请求
+    if (!recordIds.length) {
+      return new Promise<IHttpResponse<IFindRecords>>(resolve => {
+        resolve({
+          success: true,
+          code: 200,
+          message: '请求被忽略',
+          data: {
+            records: [],
+          },
+        });
+      });
+    }
     return this.getRecords<IFindRecords>(datasheetId, { recordIds, fieldKey });
   }
 
