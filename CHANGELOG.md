@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/vikadata/vika.js/compare/v0.1.10...v0.1.11) (2021-05-12)
+
+
+### Bug Fixes
+
+* find empty records return all ([db6f8fc](https://github.com/vikadata/vika.js/commit/db6f8fc84f13244656719d1f4ac494e65365eb28))
+
 ### [0.1.10](https://github.com/vikadata/vika.js/compare/v0.1.9...v0.1.10) (2021-03-29)
 
 
