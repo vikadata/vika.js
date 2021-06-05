@@ -1,6 +1,7 @@
 # @vikadata/vika
 
 [vika维格表(vika.cn)](https://vika.cn) 官方 JavaScript SDK, 让你轻松拥有维格表扩展能力
+用户交流QQ群：683795224
 
 [![Mit License](https://img.shields.io/badge/License-MIT-blue.svg)](https://www.mit-license.org/)
 [![npm version](https://img.shields.io/npm/v/@vikadata/vika?style=flat-square)](https://www.npmjs.com/package/@vikadata/vika)
