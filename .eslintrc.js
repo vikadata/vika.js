@@ -14,7 +14,7 @@ module.exports = {
     node: true,
   },
   rules: {
-    "quotes": [2, "single"],
+    // "quotes": [2, "single"],
     "semi": 2,
     "max-len": [2, 150],
     '@typescript-eslint/interface-name-prefix': 'off',
