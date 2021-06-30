@@ -62,5 +62,10 @@ export interface IVikaClientConfig {
    * 禁用 SDK 自定义 user-agent，为了统计 API 使用情况而收集的请求头信息。在某些浏览器安全策略、环境下，不允许修改 user-agent，你可以主动关闭这个功能。
    */
   disableClientUserAgent?: boolean;
+
+  /**
+   * 如果需要在微信小程序中使用，需要添加请求适配器
+   */
+  adapter?: any;
 }
 

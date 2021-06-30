@@ -22,7 +22,7 @@ export class RecordManager {
   }
   /**
    * 自动处理分页，按批次返回记录集。
-   * for await (let eachPageRecords of dst.records.fetch()){
+   * for await (let eachPageRecords of dst.records.queryAll()){
    *    console.log(eachPageRecords)
    * }
    * @param params 

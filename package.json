@@ -8,7 +8,8 @@
     "build": "yarn clean && tsc -p tsconfig.build.json && webpack",
     "release": "yarn build && standard-version",
     "clean": "rm -rf ./es/*",
-    "lint": "eslint lib/"
+    "lint": "eslint lib/",
+    "prepublish": "yarn build"
   },
   "repository": {
     "type": "git",
@@ -80,7 +81,6 @@
     "@types/form-data": "^2.5.0",
     "@types/qs": "^6.9.4",
     "axios": "^0.19.2",
-    "axios-miniprogram-adapter": "^0.3.2",
     "form-data": "^3.0.0",
     "qs": "^6.9.4"
   }

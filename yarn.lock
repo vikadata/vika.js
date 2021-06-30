@@ -1247,13 +1247,6 @@ aws4@^1.8.0:
   resolved "https://registry.npm.taobao.org/aws4/download/aws4-1.10.1.tgz?cache=0&sync_timestamp=1597236986453&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Faws4%2Fdownload%2Faws4-1.10.1.tgz#e1e82e4f3e999e2cfd61b161280d16a111f86428"
   integrity sha1-4eguTz6Zniz9YbFhKA0WoRH4ZCg=
 
-axios-miniprogram-adapter@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.npm.taobao.org/axios-miniprogram-adapter/download/axios-miniprogram-adapter-0.3.2.tgz#9240251ca0c21bfbe47644e6913a5e0368dd3ad7"
-  integrity sha1-kkAlHKDCG/vkdkTmkTpeA2jdOtc=
-  dependencies:
-    axios "^0.19.2"
-
 axios@*, axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.npm.taobao.org/axios/download/axios-0.19.2.tgz?cache=0&sync_timestamp=1594827675434&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Faxios%2Fdownload%2Faxios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"

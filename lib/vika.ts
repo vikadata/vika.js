@@ -9,7 +9,6 @@ import { SpaceManager } from './space';
 import { mergeConfig, QPSController, isBrowser } from './utils';
 
 // axios.defaults.adapter = mpAdapter;
-
 export class Vika {
   config: IVikaClientConfig;
   axios: AxiosInstance;
@@ -34,8 +33,12 @@ export class Vika {
         const result = qs.stringify(params, { arrayFormat: 'brackets' });
         // console.log('paramsSerializer after', result);
         return result;
-      }
+      },
     });
+    // 小程序适配器
+    if (this.config.adapter) {
+      this.axios.defaults.adapter = this.config.adapter;
+    }
 
     // open it for debug
     this.axios.interceptors.request.use(request => {

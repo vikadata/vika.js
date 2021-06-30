@@ -1,7 +1,7 @@
 import env from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import Vika from '../lib';
+import { Vika } from '../lib';
 import { INodeItem, IRecord } from '../lib/interface';
 env.config();
 
