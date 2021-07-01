@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "name": "edge://inspect",
+      "request": "launch",
+      "url": "edge://inspect"
+    }
+  ]
+}

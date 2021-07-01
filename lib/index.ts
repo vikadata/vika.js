@@ -1,6 +1,6 @@
 import { Vika } from './vika';
-export * from './vika';
 export * from './interface';
-export * from './request';
-export * from './datasheet';
+export * from './enums';
+
+export { Vika };
 export default Vika;
