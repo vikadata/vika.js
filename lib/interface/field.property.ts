@@ -80,7 +80,7 @@ export type ICreatedTimeFieldProperty = IDateTimeFieldProperty;
 
 export type ILastModifiedTimeFieldProperty = IDateTimeFieldProperty;
 
-export interface ILinkFieldProperty {
+export interface IMagicLinkFieldProperty {
   foreignDatasheetId: string;
   brotherFieldId: string;
   limitToViewId?: string;
@@ -123,7 +123,7 @@ export interface INoneStringValueFormat {
   format: IFormat;
 }
 
-export interface ILookupFieldProperty {
+export interface IMagicLookupFieldProperty {
   relatedLinkFieldId: string;
   targetFieldId: string;
   hasError?: boolean;
@@ -155,6 +155,6 @@ export type IFieldProperty = ISingleTextFieldFieldProperty
   | IDateTimeFieldProperty
   | ICreatedTimeFieldProperty
   | ILastModifiedTimeFieldProperty
-  | ILinkFieldProperty
-  | ILookupFieldProperty
+  | IMagicLinkFieldProperty
+  | IMagicLookupFieldProperty
   | IFormulaFieldProperty
