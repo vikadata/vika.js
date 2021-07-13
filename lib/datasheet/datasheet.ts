@@ -1,4 +1,3 @@
-import FormData from 'form-data';
 import { DEFAULT_REQUEST_TIMEOUT } from '../const';
 import { IAttachment } from '../interface';
 import { Vika } from '../vika';
@@ -7,6 +6,7 @@ import { RecordManager } from './record';
 import { ViewManager } from './view';
 
 
+let FormData: any = null;
 export class Datasheet {
   vika: Vika
 
@@ -27,6 +27,11 @@ export class Datasheet {
     return new RecordManager(this);
   }
 
+  private async importFormDataIfNeeded() {
+    if (!FormData) {
+      FormData = (await import('form-data')).default;
+    }
+  }
   /**
    * 上传文件
    * @param file 
@@ -37,6 +42,7 @@ export class Datasheet {
     if (Array.isArray(file)) {
       file = file[0];
     }
+    await this.importFormDataIfNeeded();
     const form = new FormData();
     form.append('file', file);
 

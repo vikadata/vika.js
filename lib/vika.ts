@@ -80,7 +80,7 @@ export class Vika {
       const error = e?.response?.data || e;
       result = {
         success: false,
-        code: error?.code || 500,
+        code: error?.code || 400,
         message: error?.message || '请求参数配置错误',
       };
     }
