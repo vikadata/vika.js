@@ -6,7 +6,7 @@ import { Datasheet } from './datasheet';
 import { IHttpResponse, IVikaClientConfig } from './interface';
 import { NodeManager } from './node';
 import { SpaceManager } from './space';
-import { mergeConfig, QPSController, isBrowser } from './utils';
+import { isNodeEnv, mergeConfig, QPSController } from './utils';
 
 // axios.defaults.adapter = mpAdapter;
 export class Vika {
@@ -24,7 +24,7 @@ export class Vika {
       timeout: config.requestTimeout || DEFAULT_REQUEST_TIMEOUT,
       headers: {
         common: {
-          ...(this.config.disableClientUserAgent ? {} : (isBrowser ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' })),
+          ...(isNodeEnv() ? { 'User-Agent': 'VikaJSSDK' } : { 'X-Vika-User-Agent': 'VikaJSSDK' }),
           Authorization: 'Bearer ' + config.token,
         }
       },

@@ -82,9 +82,14 @@ export const mergeConfig = (config: IVikaClientConfig): IVikaClientConfig => {
     fieldKey: 'name',
     requestTimeout: DEFAULT_REQUEST_TIMEOUT,
     logLevel: 'Warn',
-    disableClientUserAgent: false,
   };
   return { ...DEFAULT_CONFIG, ...config };
 };
 
-export const isBrowser = typeof window !== 'undefined';
+
+export const isNodeEnv = () => {
+  if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+    return true;
+  }
+  return false;
+};
