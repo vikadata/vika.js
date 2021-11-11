@@ -77,7 +77,7 @@ export class Request {
       timeout: config.requestTimeout || DEFAULT_REQUEST_TIMEOUT,
       headers: {
         common: {
-          ...(typeof window !== 'undefined' ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' }),
+          ...(typeof process === 'undefined' ? {} : { 'User-Agent': 'VikaJSSDK' }),
           Authorization: 'Bearer ' + config.token,
         }
       },
