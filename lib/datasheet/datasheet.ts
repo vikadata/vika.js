@@ -32,14 +32,13 @@ export class Datasheet {
    * @param file 
    * @returns 
    */
-  async upload(file: any) {
+  async upload(file: any, options?: FormData.AppendOptions) {
     // 每次只允许上传一个文件
     if (Array.isArray(file)) {
       file = file[0];
     }
     const form = new FormData();
-    form.append('file', file);
-
+    form.append('file', file, options);
     return await this.vika.request<IAttachment>({
       path: `/datasheets/${this.datasheetId}/attachments`,
       method: 'post',

@@ -1,8 +1,10 @@
 import env from 'dotenv';
 import fs from 'fs';
+import { Buffer } from 'buffer';
 import path from 'path';
 import { Vika } from '../lib';
 import { INodeItem, IRecord } from '../lib/interface';
+
 env.config();
 
 jest.setTimeout(30000);
@@ -78,16 +80,25 @@ describe('full pipeline', () => {
     expect(all.data!.records.length).toEqual(records.length);
   });
 
+  it('upload buffer attachment', async () => {
+    const buf = Buffer.from('hello world', 'utf8');
+    console.time('upload attachment');
+    const result = await datasheet.upload(buf, { filename: 'text.txt' });
+    if (!result.success) {
+      console.error(result);
+    }
+    console.timeEnd('upload attachment');
+    expect(result.success).toBeTruthy();
+  });
+
   it('upload attachment', async () => {
     const file = fs.createReadStream(path.join(__dirname, '../tsconfig.json'));
-
     console.time('upload attachment');
     const result = await datasheet.upload(file);
     if (!result.success) {
       console.error(result);
     }
     console.timeEnd('upload attachment');
-
     expect(result.success).toBeTruthy();
   });
   // spaces list
