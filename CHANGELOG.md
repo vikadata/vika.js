@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/vikadata/vika.js/compare/v1.0.5...v1.0.6) (2022-03-31)
+
+
+### Bug Fixes
+
+* default fieldKet not working ([34f0e43](https://github.com/vikadata/vika.js/commit/34f0e438e79a6aec4e74ce8c177134ece23b85e4))
+* workflow ([ed86e07](https://github.com/vikadata/vika.js/commit/ed86e071cba2faccbd7aed3e9bc1c9b5c131b840))
+
 ### [1.0.4](https://github.com/vikadata/vika.js/compare/v1.0.3...v1.0.4) (2021-11-17)
 
 ### [1.0.1](https://github.com/vikadata/vika.js/compare/v0.1.10...v1.0.1) (2021-06-24)
