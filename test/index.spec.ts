@@ -20,6 +20,23 @@ describe('full pipeline', () => {
   let spaceIds: string[];
   let nodes: INodeItem[];
 
+  it('fieldKey', async () => {
+    const vika = new Vika({
+      token: process.env.VIKA_API_TOKEN as string,
+      host: process.env.VIKA_API_HOST as string || 'https://api.vika.cn/fusion/v1',
+      fieldKey: 'id',
+    });
+    const datasheet = vika.datasheet(process.env.VIKA_API_DATASHEET as string);
+    console.time('list records');
+    const result = await datasheet.records.query();
+    console.timeEnd('list records');
+    if (!result.success) {
+      console.error(result);
+    }
+    expect(result.success).toBeTruthy();
+    records = result.data!.records;
+    expect(Object.keys(records[0].fields).every(key => key.startsWith('fld'))).toBeTruthy();
+  });
   // 读取初始
   it('list records', async () => {
     console.time('list records');

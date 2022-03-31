@@ -72,7 +72,10 @@ export class Vika {
         timeout,
         url: path,
         method,
-        params,
+        params: {
+          fieldKey: this.config.fieldKey,
+          ...params,
+        },
         data,
         headers,
       })).data;
