@@ -1,6 +1,5 @@
 import { Datasheet } from './datasheet/datasheet';
-import { DatasheetCreateRo, IGetSpaceListResponseData } from './interface';
-import { DatasheetFieldCreateVo } from './interface/datasheet.field.create.vo';
+import { IGetSpaceListResponseData } from './interface';
 import { Vika } from './vika';
 
 export class SpaceManager {
@@ -22,6 +21,10 @@ export class SpaceManager {
     return new Datasheet(this.spaceId, datasheetId, this.vika);
   }
 
+  get datasheets() {
+    return new Datasheet(this.spaceId, '', this.vika);
+  }
+
   /**
    * 获取用户空间站列表
    */
@@ -32,17 +35,4 @@ export class SpaceManager {
     });
   }
 
-  /**
-   * 创建表格
-   */
-  async createDatasheet(datasheetCreateRo: DatasheetCreateRo){
-    if (!this.spaceId) {
-      throw new Error('请在构建space对象时输入spaceId参数，以确定操作的空间站');
-    }
-    return await this.vika.request<DatasheetFieldCreateVo>({
-      path: `/spaces/${this.spaceId}/datasheets`,
-      method: 'post',
-      data: datasheetCreateRo
-    });
-  }
 }

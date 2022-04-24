@@ -1,4 +1,6 @@
 import { IGetFieldsListRespData } from '../interface';
+import { DatasheetFieldCreateRo } from '../interface/datasheet.field.create.ro';
+import { DatasheetFieldCreateVo } from '../interface/datasheet.field.create.vo';
 import { Vika } from '../vika';
 import { Datasheet } from './datasheet';
 
@@ -20,6 +22,20 @@ export class FieldManager {
     return await this.vika.request<IGetFieldsListRespData>({
       path: this.APIEndpoint,
       method: 'get',
+    });
+  }
+
+  /**
+   * 创建字段
+   */
+   async create(fieldCreateRo: DatasheetFieldCreateRo){
+    if (!this.datasheet.spaceId) {
+      throw new Error('请在构建space对象时输入spaceId参数，以确定操作的空间站');
+    }
+    return await this.vika.request<DatasheetFieldCreateVo>({
+      path: `/spaces/${this.datasheet.spaceId}/datasheets/${this.datasheet.datasheetId}/fields`,
+      method: 'post',
+      data: fieldCreateRo
     });
   }
 

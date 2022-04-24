@@ -147,10 +147,10 @@ describe('full pipeline', () => {
       name: '新建单测表格'
     };
     const spaceId = spaceIds[0];
-    const res = await vika.space(spaceId).createDatasheet(ro);
+    const res = await vika.space(spaceId).datasheets.create(ro);
     expect(res.success).toBeTruthy();
     createdDatasheetId = res.data?.id||'';
-  })
+  });
 
   it('create field', async () => {
     const property: IAddOpenSingleTextFieldProperty = {
@@ -162,16 +162,16 @@ describe('full pipeline', () => {
       property
     };
     const spaceId = spaceIds[0];
-    const res = await vika.space(spaceId).datasheet(createdDatasheetId).createField(ro);
+    const res = await vika.space(spaceId).datasheet(createdDatasheetId).fields.create(ro);
     expect(res.success).toBeTruthy();
     expect(res.data?.id).toBeDefined();
     createdFieldId = res.data?.id||'';
-  })
+  });
 
   it('delete field', async () => {
     const spaceId = spaceIds[0];
     const res = await vika.space(spaceId).datasheet(createdDatasheetId).fields.delete(createdFieldId);
     expect(res.success).toBeTruthy();
-  })
+  });
 
 });
