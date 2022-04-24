@@ -22,4 +22,16 @@ export class FieldManager {
       method: 'get',
     });
   }
+
+  /**
+   * 删除字段
+   * @param fieldId 
+   * @returns 
+   */
+  async delete(fieldId: string) {
+    return await this.vika.request<IGetFieldsListRespData>({
+      path: `/spaces/${this.datasheet.spaceId}/datasheets/${this.datasheet.datasheetId}/fields/${fieldId}`,
+      method: 'delete',
+    });
+  }
 }

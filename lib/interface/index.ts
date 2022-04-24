@@ -3,6 +3,7 @@ export * from './record';
 export * from './node';
 export * from './view';
 export * from './space';
+export * from './datasheet.create.ro';
 
 /**
  * 附件类型
