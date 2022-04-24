@@ -3,7 +3,9 @@ import fs from 'fs';
 import { Buffer } from 'buffer';
 import path from 'path';
 import { Vika } from '../lib';
-import { INodeItem, IRecord } from '../lib/interface';
+import { DatasheetCreateRo, INodeItem, IRecord } from '../lib/interface';
+import { DatasheetFieldCreateRo } from '../lib/interface/datasheet.field.create.ro';
+import { IAddOpenSingleTextFieldProperty } from '../lib/interface/field.create.property';
 
 env.config();
 
@@ -19,6 +21,8 @@ describe('full pipeline', () => {
   let records: IRecord[];
   let spaceIds: string[];
   let nodes: INodeItem[];
+  let createdDatasheetId: string;
+  let createdFieldId: string;
 
   it('fieldKey', async () => {
     const vika = new Vika({
@@ -137,4 +141,37 @@ describe('full pipeline', () => {
     expect(result.success).toBeTruthy();
     expect(result.data?.id).toEqual(firstNode.id);
   });
+
+  it('create datasheet', async () => {
+    const ro: DatasheetCreateRo = {
+      name: '新建单测表格'
+    };
+    const spaceId = spaceIds[0];
+    const res = await vika.space(spaceId).createDatasheet(ro);
+    expect(res.success).toBeTruthy();
+    createdDatasheetId = res.data?.id||'';
+  })
+
+  it('create field', async () => {
+    const property: IAddOpenSingleTextFieldProperty = {
+      defaultValue: '我是默认值'
+    };
+    const ro: DatasheetFieldCreateRo = {
+      name: '新增文本字段',
+      type: 'SingleText',
+      property
+    };
+    const spaceId = spaceIds[0];
+    const res = await vika.space(spaceId).datasheet(createdDatasheetId).createField(ro);
+    expect(res.success).toBeTruthy();
+    expect(res.data?.id).toBeDefined();
+    createdFieldId = res.data?.id||'';
+  })
+
+  it('delete field', async () => {
+    const spaceId = spaceIds[0];
+    const res = await vika.space(spaceId).datasheet(createdDatasheetId).fields.delete(createdFieldId);
+    expect(res.success).toBeTruthy();
+  })
+
 });
