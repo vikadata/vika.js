@@ -1,7 +1,7 @@
 import FormData from 'form-data';
 import { DEFAULT_REQUEST_TIMEOUT } from '../const';
-import { DatasheetCreateRo, IAttachment } from '../interface';
-import { DatasheetCreateVo } from '../interface/datasheet.create.vo';
+import { IDatasheetCreateRo, IAttachment } from '../interface';
+import { IDatasheetCreateVo } from '../interface/datasheet.create.vo';
 import { Vika } from '../vika';
 import { FieldManager } from './field';
 import { RecordManager } from './record';
@@ -34,11 +34,11 @@ export class Datasheet {
   /**
   * 创建表格
   */
-  async create(datasheetCreateRo: DatasheetCreateRo) {
+  async create(datasheetCreateRo: IDatasheetCreateRo) {
     if (!this.spaceId) {
       throw new Error('请在构建space对象时输入spaceId参数，以确定操作的空间站');
     }
-    return await this.vika.request<DatasheetCreateVo>({
+    return await this.vika.request<IDatasheetCreateVo>({
       path: `/spaces/${this.spaceId}/datasheets`,
       method: 'post',
       data: datasheetCreateRo

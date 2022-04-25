@@ -1,6 +1,6 @@
-import { DatasheetFieldCreateVo } from "./datasheet.field.create.vo";
+import { IDatasheetFieldCreateVo } from "./datasheet.field.create.vo";
 
-export interface DatasheetCreateVo {
+export interface IDatasheetCreateVo {
 
     /**
      * 字段ID
@@ -14,6 +14,6 @@ export interface DatasheetCreateVo {
     /**
      * 需要创建的字段列表
      */
-    fields?: DatasheetFieldCreateVo[];
+    fields?: IDatasheetFieldCreateVo[];
 
 }

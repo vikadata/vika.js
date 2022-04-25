@@ -3,8 +3,8 @@ import fs from 'fs';
 import { Buffer } from 'buffer';
 import path from 'path';
 import { Vika } from '../lib';
-import { DatasheetCreateRo, INodeItem, IRecord } from '../lib/interface';
-import { DatasheetFieldCreateRo } from '../lib/interface/datasheet.field.create.ro';
+import { IDatasheetCreateRo, INodeItem, IRecord } from '../lib/interface';
+import { IDatasheetFieldCreateRo } from '../lib/interface/datasheet.field.create.ro';
 import { IAddOpenSingleTextFieldProperty } from '../lib/interface/field.create.property';
 
 env.config();
@@ -143,7 +143,7 @@ describe('full pipeline', () => {
   });
 
   it('create datasheet', async () => {
-    const ro: DatasheetCreateRo = {
+    const ro: IDatasheetCreateRo = {
       name: '新建单测表格'
     };
     const spaceId = spaceIds[0];
@@ -156,7 +156,7 @@ describe('full pipeline', () => {
     const property: IAddOpenSingleTextFieldProperty = {
       defaultValue: '我是默认值'
     };
-    const ro: DatasheetFieldCreateRo = {
+    const ro: IDatasheetFieldCreateRo = {
       name: '新增文本字段',
       type: 'SingleText',
       property

@@ -1,6 +1,6 @@
 import { IAddOpenFieldProperty } from "./field.create.property";
 
-export interface DatasheetFieldCreateRo {
+export interface IDatasheetFieldCreateRo {
 
     /**
      * 字段名称

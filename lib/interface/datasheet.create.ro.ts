@@ -1,6 +1,6 @@
-import { DatasheetFieldCreateRo } from "./datasheet.field.create.ro";
+import { IDatasheetFieldCreateRo } from "./datasheet.field.create.ro";
 
-export interface DatasheetCreateRo {
+export interface IDatasheetCreateRo {
   
     /**
      * 表格名称
@@ -25,6 +25,6 @@ export interface DatasheetCreateRo {
     /**
      * 需要创建的字段列表
      */
-    fields?: DatasheetFieldCreateRo[];
+    fields?: IDatasheetFieldCreateRo[];
 
 }

@@ -1,4 +1,4 @@
-export interface DatasheetFieldCreateVo {
+export interface IDatasheetFieldCreateVo {
 
   /**
    * 字段ID
