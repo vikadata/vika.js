@@ -104,7 +104,7 @@ export class Vika {
     if (!datasheetId) {
       throw new Error('请传入维格表Id, 可以从维格表 url 上获取，维格表 id 通常以 dst 开头');
     }
-    return new Datasheet(datasheetId, this);
+    return new Datasheet('', datasheetId, this);
   }
 
   /**
@@ -119,5 +119,12 @@ export class Vika {
    */
   get spaces() {
     return new SpaceManager(this);
+  }
+
+  /**
+   * 获取单个空间
+   */
+  space(spaceId: string) {
+    return new SpaceManager(this, spaceId);
   }
 }

@@ -50,3 +50,23 @@ export enum ViewType {
   Kanban = 'Kanban',
   Gantt = 'Gantt',
 }
+
+export enum TSymbolAlign {
+  Default = 'Default',
+  Left = 'Left',
+  Right = 'Right'
+}
+
+export enum Conversion {
+  /** 删除关联表的关联字段 */
+  Delete = 'delete',
+  /** 保留关联表的关联字段，并转换成文本类型 */
+  KeepText = 'keepText'
+}
+
+export enum APIMetaFieldPropertyFormatEnums {
+  DateTime = 'DateTime',
+  Number = 'Number',
+  Percent = 'Percent',
+  Currency = 'Currency',
+}

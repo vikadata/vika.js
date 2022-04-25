@@ -1,6 +1,7 @@
 import FormData from 'form-data';
 import { DEFAULT_REQUEST_TIMEOUT } from '../const';
-import { IAttachment } from '../interface';
+import { IDatasheetCreateRo, IAttachment } from '../interface';
+import { IDatasheetCreateVo } from '../interface/datasheet.create.vo';
 import { Vika } from '../vika';
 import { FieldManager } from './field';
 import { RecordManager } from './record';
@@ -9,9 +10,12 @@ import { ViewManager } from './view';
 
 export class Datasheet {
   vika: Vika
+  spaceId: string
+  datasheetId: string
 
-  constructor(public datasheetId: string, vika: Vika) {
+  constructor(spaceId: string, datasheetId: string, vika: Vika) {
     this.vika = vika;
+    this.spaceId = spaceId;
     this.datasheetId = datasheetId;
   }
 
@@ -25,6 +29,20 @@ export class Datasheet {
 
   get records() {
     return new RecordManager(this);
+  }
+
+  /**
+  * 创建表格
+  */
+  async create(datasheetCreateRo: IDatasheetCreateRo) {
+    if (!this.spaceId) {
+      throw new Error('请在构建space对象时输入spaceId参数，以确定操作的空间站');
+    }
+    return await this.vika.request<IDatasheetCreateVo>({
+      path: `/spaces/${this.spaceId}/datasheets`,
+      method: 'post',
+      data: datasheetCreateRo
+    });
   }
 
   /**
@@ -50,4 +68,5 @@ export class Datasheet {
       timeout: this.vika.config.requestTimeout || DEFAULT_REQUEST_TIMEOUT * 10, // 上传相应时间放宽到 100 秒
     });
   }
+
 }
