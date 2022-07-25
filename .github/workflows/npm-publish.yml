@@ -10,17 +10,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 12
-      - env:
-          VIKA_API_TOKEN: ${{ env.VIKA_API_TOKEN }}
-          VIKA_API_DATASHEET: ${{ env.VIKA_API_DATASHEET }}
-      - run: yarn
-      - run: yarn test
-      - run: yarn build
+      - name: run build
+        run: |
+          yarn
+          yarn test
+          yarn build
 
   publish-npm:
     needs: build

@@ -5,6 +5,7 @@
   "main": "./es/index.js",
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "build": "yarn clean && tsc -p tsconfig.build.json && webpack",
     "release": "yarn build && standard-version",
     "clean": "rm -rf ./es/*",
