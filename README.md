@@ -20,5 +20,5 @@ Vika JavaScript SDK 是对维格表 Fusion API 的官方封装，可以很方便
 
 ## 文档
 
-参见: [https://vika.cn/developers](https://vika.cn/developers)
+参见: [https://vika.cn/developers/api/quick-start/](https://vika.cn/developers/api/quick-start/)
 
