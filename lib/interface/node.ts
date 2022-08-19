@@ -1,9 +1,17 @@
 export interface INodeItem {
   id: string;
   name: string;
-  type: 'datasheet' | 'folder';
+  type: NodeType,
   icon: string;
   isFav: boolean;
+}
+
+export const enum NodeType {
+  'Datasheet',
+  'Mirror',
+  'Folder',
+  'Form',
+  'Dashboard'
 }
 
 export interface IGetNodeListReqParams {
