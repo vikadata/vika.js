@@ -34,7 +34,7 @@ describe("full pipeline", () => {
   let createdFieldId: string;
 
   it("fieldKey", async () => {
-    const apitable = new APITable({
+    const apitable = new Vika({
       token,
       host,
       fieldKey: "id",
