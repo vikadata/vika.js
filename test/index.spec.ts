@@ -3,19 +3,29 @@ import fs from "fs";
 import { Buffer } from "buffer";
 import path from "path";
 import { Vika } from "../lib";
-import { IDatasheetCreateRo, INodeItem, IRecord } from "apitable";
+import { IDatasheetCreateRo, INodeItem, IRecord } from "../lib/interface";
+import { IDatasheetFieldCreateRo } from "../lib/interface/datasheet.field.create.ro";
+import { IAddOpenSingleTextFieldProperty } from "../lib/interface/field.create.property";
 
 env.config();
 
 jest.setTimeout(30000);
 
 describe("full pipeline", () => {
-  const vika = new Vika({
-    token: process.env.VIKA_API_TOKEN as string,
-    host:
-      (process.env.VIKA_API_HOST as string) || "https://api.vika.cn/fusion/v1",
+  const host = process.env.DOMAIN
+    ? `https://${process.env.DOMAIN}/fusion/v1`
+    : undefined;
+  const token = process.env.TOKEN as string;
+  const datasheetId = process.env.DATASHEET_ID as string;
+  const folderId = process.env.FOLDER_ID as string;
+  const spaceId = process.env.SPACE_ID as string;
+
+  const apitable = new Vika({
+    token,
+    host,
   });
-  const datasheet = vika.datasheet(process.env.VIKA_API_DATASHEET as string);
+
+  const datasheet = apitable.datasheet(datasheetId);
 
   let records: IRecord[];
   let spaceIds: string[];
@@ -24,14 +34,12 @@ describe("full pipeline", () => {
   let createdFieldId: string;
 
   it("fieldKey", async () => {
-    const vika = new Vika({
-      token: process.env.VIKA_API_TOKEN as string,
-      host:
-        (process.env.VIKA_API_HOST as string) ||
-        "https://api.vika.cn/fusion/v1",
+    const apitable = new APITable({
+      token,
+      host,
       fieldKey: "id",
     });
-    const datasheet = vika.datasheet(process.env.VIKA_API_DATASHEET as string);
+    const datasheet = apitable.datasheet(datasheetId);
     console.time("list records");
     const result = await datasheet.records.query();
     console.timeEnd("list records");
@@ -44,11 +52,11 @@ describe("full pipeline", () => {
       Object.keys(records[0].fields).every((key) => key.startsWith("fld"))
     ).toBeTruthy();
   });
-  // 读取初始
+  // Read the initial.
   it("list records", async () => {
     console.time("list records");
     const result = await datasheet.records.query({
-      sort: [{ field: "标题", order: "desc" }],
+      sort: [{ field: "Title", order: "desc" }],
     });
     console.timeEnd("list records");
     if (!result.success) {
@@ -58,7 +66,6 @@ describe("full pipeline", () => {
     records = result.data!.records;
   });
 
-  // 删除所有 records
   it("delete records", async () => {
     console.time("delete records");
     const result = await datasheet.records.delete(
@@ -69,12 +76,11 @@ describe("full pipeline", () => {
     expect(result.success).toBeTruthy();
   });
 
-  // 增加 records
   it("add records", async () => {
     const recordsToAdd = [
       {
         fields: {
-          标题: "一行新增的记录" + new Date().toString(),
+          Title: "One new row of records" + new Date().toString(),
         },
       },
     ];
@@ -90,13 +96,12 @@ describe("full pipeline", () => {
     expect(result.data!.records.length).toEqual(recordsToAdd.length);
   });
 
-  // 更新 records
   it("update records", async () => {
     const recordsToUpdate: IRecord[] = [
       {
         recordId: records[0].recordId,
         fields: {
-          标题: "一行被修改的记录" + new Date().toString(),
+          Title: "A row of modified records" + new Date().toString(),
         },
       },
     ];
@@ -108,7 +113,7 @@ describe("full pipeline", () => {
     expect(result.success).toBeTruthy();
     expect(result.data!.records.length).toEqual(recordsToUpdate.length);
     const all = await datasheet.records.query();
-    // 长度应该跟原表保持一致
+    // The length should be the same as the original datasheet.
     expect(all.data!.records.length).toEqual(records.length);
   });
 
@@ -135,20 +140,20 @@ describe("full pipeline", () => {
   });
   // spaces list
   it("get space list", async () => {
-    const result = await vika.spaces.list();
+    const result = await apitable.spaces.list();
     expect(result.success).toBeTruthy();
     spaceIds = result.data!.spaces.map((item) => item.id);
   });
   // nodes list
   it("get node list", async () => {
-    const result = await vika.nodes.list({ spaceId: spaceIds[0] });
+    const result = await apitable.nodes.list({ spaceId: spaceIds[0] });
     expect(result.success).toBeTruthy();
     nodes = result.data!.nodes;
   });
   // node detail
   it("get node detail", async () => {
     const firstNode = nodes[0];
-    const result = await vika.nodes.get({
+    const result = await apitable.nodes.get({
       spaceId: spaceIds[0],
       nodeId: firstNode.id,
     });
@@ -158,25 +163,24 @@ describe("full pipeline", () => {
 
   it("create datasheet", async () => {
     const ro: IDatasheetCreateRo = {
-      name: "新建单测表格",
+      name: "New single test form.",
+      folderId,
     };
-    const spaceId = spaceIds[0];
-    const res = await vika.space(spaceId).datasheets.create(ro);
+    const res = await apitable.space(spaceId).datasheets.create(ro);
     expect(res.success).toBeTruthy();
     createdDatasheetId = res.data?.id || "";
   });
 
   it("create field", async () => {
-    const property = {
-      defaultValue: "我是默认值",
+    const property: IAddOpenSingleTextFieldProperty = {
+      defaultValue: "I am the default value.",
     };
-    const ro = {
-      name: "新增文本字段",
+    const ro: IDatasheetFieldCreateRo = {
+      name: "New text field.",
       type: "SingleText",
       property,
     };
-    const spaceId = spaceIds[0];
-    const res = await vika
+    const res = await apitable
       .space(spaceId)
       .datasheet(createdDatasheetId)
       .fields.create(ro);
@@ -186,8 +190,7 @@ describe("full pipeline", () => {
   });
 
   it("delete field", async () => {
-    const spaceId = spaceIds[0];
-    const res = await vika
+    const res = await apitable
       .space(spaceId)
       .datasheet(createdDatasheetId)
       .fields.delete(createdFieldId);
