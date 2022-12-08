@@ -16,27 +16,27 @@ export interface IOpenCheckboxFieldProperty {
 }
 
 export interface IOpenRatingFieldProperty {
-    /** 最大值 1 - 10 */
+    /** Maximum value 1 - 10. */
     max: number;
-    /** Emoji slug */
+    /** Emoji slug. */
     icon: string;
 }
 
 export interface IOpenPercentFieldProperty {
-    /** 新增记录默认值 */
+    /** New record default value. */
     defaultValue?: string;
-    /** 保留小数位 */
+    /** Retain decimal places. */
     precision: number;
 }
 
 export interface IOpenCurrencyFieldProperty {
-    /** 新增记录默认值 */
+    /** New record default value. */
     defaultValue?: string;
-    /** 单位 */
+    /** Unit. */
     symbol: string;
-    /** 保留小数位 */
+    /** Retain decimal places. */
     precision: number;
-    /** 单位对齐方式 */
+    /** Unit alignment. */
     symbolAlign?: TSymbolAlign;
 }
 
@@ -44,7 +44,7 @@ export type IMultiSelectedIds = string[];
 
 export interface IWriteOpenSelectBaseFieldProperty {
     defaultValue?: string | IMultiSelectedIds;
-    /** 选项配置 */
+    /** Option Configuration. */
     options: {
         id?: string;
         name: string;
@@ -54,13 +54,10 @@ export interface IWriteOpenSelectBaseFieldProperty {
 }
 
 export interface IOpenDateTimeFieldProperty {
-    /** 日期格式 */
     dateFormat: string;
-    /** 时间格式 */
     timeFormat?: string;
-    /** 新增记录时是否自动填入创建时间 */
+    /** Whether to automatically fill in the creation time when adding a record. */
     autoFill?: boolean;
-    /** 是否包含时间 */
     includeTime?: boolean;
 }
 
@@ -89,9 +86,9 @@ export type IAddOpenSingleSelectFieldProperty = IWriteOpenSelectBaseFieldPropert
 export type IAddOpenMultiSelectFieldProperty = IWriteOpenSelectBaseFieldProperty;
 
 export interface IAddOpenMemberFieldProperty {
-    /* 是否允许添加多个成员 **/
+    /* Whether to allow multiple members to be added. **/
     isMulti?: boolean;
-    /** 是否发送通知 */
+    /** Whether to send notifications. */
     shouldSendMsg?: boolean;
 }
 
@@ -100,11 +97,11 @@ export type IAddOpenDateTimeFieldProperty = IOpenDateTimeFieldProperty;
 export type IAddOpenAttachmentFieldProperty = null;
 
 export interface IAddOpenMagicLinkFieldProperty {
-    /** 关联表ID，切换关联表，之前的brotherField会转成文本字段 */
+    /** Association datasheet ID, switch the association datasheet, the previous brotherField will be converted to a text field */
     foreignDatasheetId: string;
-    /** 指定视图 ID 筛选记录 */
+    /** Specify the view ID to filter the records. */
     limitToViewId?: string;
-    /** 是否限制只能选择单条记录 */
+    /** Whether to restrict selection to a single record. */
     limitSingleRecord?: boolean;
 }
 
@@ -114,20 +111,23 @@ export interface IOpenComputedFormat {
 }
 
 export interface IAddOpenMagicLookUpFieldProperty {
-    /** 引用的当前表的关联字段 ID */
+    /** Associated field ID of the referenced current datasheet. */
     relatedLinkFieldId: string;
-    /** 关联表中查询的字段 ID */
+    /** Field ID of the query in the correlation datasheet. */
     targetFieldId: string;
-    /** 汇总函数 */
+    /** Aggregate functions. */
     rollupFunction?: RollUpFuncType;
-    /** 格式，由于引用字段有区别，格式也不一样（数字、百分比、日期、货币） */
+    /** Format, which varies due to differences in the referenced fields (number, percent, date, currency) */
     format?: IOpenComputedFormat;
 }
 
 export interface IAddOpenFormulaFieldProperty {
-    /** 公式表达式 */
+    /** Formula expressions. */
     expression?: string;
-    /** 当公式依赖的相关字段被删除或者转化类型时，可能无法正常获取计算值 */
+    /**
+     * The calculated value may not be obtained properly when the relevant field on which 
+     * the formula depends is deleted or converted to a type. 
+     */
     format?: IOpenComputedFormat;
 }
 
@@ -138,31 +138,26 @@ export type IOpenCreatedTimeFieldProperty = Omit<IOpenDateTimeFieldProperty, 'au
 export type IAddOpenCreatedTimeFieldProperty = IOpenCreatedTimeFieldProperty;
 
 export enum CollectType {
-    // 所有字段
     AllFields,
-    // 指定字段
     SpecifiedFields,
 }
 
 export interface IAddOpenLastModifiedTimeFieldProperty {
-    /** 日期格式 */
     dateFormat: string;
-    /** 时间格式 */
     timeFormat?: string;
-    /** 是否包含时间 */
     includeTime?: boolean;
-    /** 指定字段类型：0 所有可编辑，1 指定字段 */
+    /** Specify the field type: 0 All editable, 1 Specify the field */
     collectType?: CollectType;
-    /** 是否指定字段，数组类型可指定多个字段，不填为所有 */
+    /** Whether to specify the field, array type can specify more than one field, not fill for all. */
     fieldIdCollection?: string[];
 }
 
 export type IAddOpenCreatedByFieldProperty = null;
 
 export interface IAddOpenLastModifiedByFieldProperty {
-    /** 指定字段类型：0 所有可编辑，1 指定字段 */
+    /** Specify the field type: 0 All editable, 1 Specify the field. */
     collectType?: CollectType;
-    /** 是否指定字段，数组类型可指定多个字段，不填为所有 */
+    /** Whether to specify the field, array type can specify more than one field, not fill for all. */
     fieldIdCollection?: string[];
 }
 

@@ -2,7 +2,7 @@ import { FieldType } from '../enums';
 import { IFieldProperty } from './field.property';
 
 /**
- * 字段相关
+ * Field Related.
  */
 export interface IField {
   id: string;

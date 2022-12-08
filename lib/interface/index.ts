@@ -6,21 +6,21 @@ export * from './space';
 export * from './datasheet.create.ro';
 
 /**
- * 附件类型
+ * Attachment interface.
  */
 export interface IAttachment {
-  token: string; // 附件访问路径
-  name: string; // 附件原始名称
-  size: number; // 附件大小
-  width: number; // 附件宽
-  height: number; // 附件长
-  mimeType: string; // 附件类型
-  bucket: string; // 上传位置
-  preview?: string; // 预览图
+  token: string; // Attachment Access Path.
+  name: string; // Original name of the attachment.
+  size: number;
+  width: number;
+  height: number;
+  mimeType: string; // Attachment type.
+  bucket: string; // Upload Location.
+  preview?: string; // Preview image.
 }
 
 
-// HTTP 成功响应
+// HTTP successful response.
 export interface IHttpSuccessResponse<T> {
   success: true;
   code: number;
@@ -38,34 +38,38 @@ export interface IHttpErrorResponse<T> {
 export type IHttpResponse<T = any> = IHttpSuccessResponse<T> | IHttpErrorResponse<T>;
 
 
-export interface IVikaClientConfig {
+export interface IAPITableClientConfig {
   /**
    * API Token
    */
   token: string;
   /**
-   * 指定 field 的查询和返回的 key。默认使用列名  'name' 。指定为 'id' 时将以 fieldId 作为查询和返回方式（使用 id 可以避免列名的修改导致代码失效问题）
+   * The default is the column name 'name'. Specifying 'id' will use fieldId as the query and 
+   * return method (using id will avoid code failure due to column name changes).
    */
   fieldKey?: 'name' | 'id';
   /**
-   * 请求失效时间，默认 60000ms (10 秒)
+   * Request expiration time, default 60000ms (10 seconds).
    */
   requestTimeout?: number;
   /**
-   * 目标服务器地址
+   * Destination server address.
    */
   host?: string;
   /**
-   * log 等级
+   * Log Level.
    */
   logLevel?: 'Error' | 'Warn' | 'Log' | 'Debug'
   /**
-   * 禁用 SDK 自定义 user-agent，为了统计 API 使用情况而收集的请求头信息。在某些浏览器安全策略、环境下，不允许修改 user-agent，你可以主动关闭这个功能。
+   * Disable the SDK custom user-agent, request header information collected for 
+   * API usage statistics. In some browser security policies, 
+   * environments that do not allow user-agent modification, 
+   * you can actively disable this feature.
    */
   disableClientUserAgent?: boolean;
 
   /**
-   * 如果需要在微信小程序中使用，需要添加请求适配器
+   * If you need to use it in WeChat applet, you need to add request adapter.
    */
   adapter?: any;
 }

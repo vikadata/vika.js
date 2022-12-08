@@ -1,6 +1,6 @@
 export type IFieldValueBase = number | string | boolean | { [key: string]: any };
 
-// 单元格 value 值类型
+// Cell value Value type.
 export type IFieldValue = IFieldValueBase | IFieldValueBase[] | null;
 
 export type IFieldValueMap = { [fieldKey: string]: IFieldValue };
@@ -9,8 +9,8 @@ export interface IRecord {
   recordId: string;
 
   /**
-   * record 中的数据
-   * 只有当 record 某一列存在内容时，data 中才会有这一列的fieldId key
+   * Data in record,
+   * the fieldId key of a column in data will be available only if there is content in that column of record.
    */
   fields: IFieldValueMap;
 }
@@ -20,43 +20,62 @@ export interface ISortConfig { field: string, order: 'asc' | 'desc' }
 
 export interface IGetRecordsReqParams {
   /**
-   * （选填）指定每页返回的记录总数，缺省值为100。此参数只接受1-1000的整数。
+   * (Optional) Specifies the total number of records returned per page, 
+   * the default value is 100. this parameter only accepts integers from 1 to 1000.
    */
   pageSize?: number;
   /**
-   * （选填）限制返回记录的总数量。如果该值小于表中实际的记录总数，则返回的记录总数会被限制为该值。
+   * (Optional) Limits the total number of records returned. 
+   * If the value is less than the actual total number of records in the datasheet, 
+   * the datasheet number of records returned will be limited to that value.
    */
   maxRecords?: number;
   /**
-   * （选填）指定分页的页码，默认为 1，与参数pageSize配合使用。
+   * (Optional) Specifies the page number of the pagination, default is 1, 
+   * used in conjunction with the parameter pageSize.
    */
   pageNum?: number;
   /**
-   * （选填）对指定维格表的记录进行排序。由多个“排序对象”组成的数组。支持顺序：'asc' 和 逆序：'desc'。注：此参数指定的排序条件将会覆盖视图里的排序条件。
+   * (Optional) Sorts the records in the specified datasheet. 
+   * Arrays of multiple 'sort objects'. Supports order: 'asc' and 
+   * reverse order: 'desc'. Note: The sort condition specified by 
+   * this parameter will override the sort condition in the view.
    */
   sort?: ISortConfig[];
   /**
-   * （选填）记录ID数组。如果附带此参数，则返回指定IDs的记录数组。 返回值按照传入数组的顺序排序。此时无视筛选、排序。无分页，每次最多查询 1000 条
+   * (Optional) An array of record IDs. If this parameter is attached, 
+   * an array of records with the specified IDs is returned. 
+   * The returned values are sorted in the order of the incoming array. 
+   * Ignore filtering and sorting at this point. No paging, up to 1000 records per query.
    */
   recordIds?: string[];
   /**
-   * （选填）视图ID。默认为维格表中第一个视图。请求会返回视图中经过视图中筛选/排序后的结果，可以搭配使用fields参数过滤不需要的字段数据
+   * (Optional) View ID. defaults to the first view in the datasheet. 
+   * The request will return the results of the view after filtering/sorting in the view, 
+   * you can use the fields parameter to filter the data of unwanted fields.
    */
   viewId?: string;
   /**
-   * （选填）指定要返回的字段（默认为字段名, 也可以通过 fieldKey 指定为字段 Id）。如果附带此参数，则返回的记录合集将会被过滤，只有指定的字段会返回。
+   * (Optional) Specifies the field to be returned (the default is the field name, 
+   * which can also be specified as the field Id via fieldKey). If this parameter is included, 
+   * the returned record set will be filtered and only the specified field will be returned.
    */
   fields?: string[];
   /**
-   * （选填）使用公式作为筛选条件，返回匹配的记录，访问 https://vika.cn/help/tutorial-getting-started-with-formulas/ 了解公式使用方式
+   * (Optional) Use the formula as a filter condition to return matching records, 
+   * access https://help.apitable.com/tutorial-getting-started-with-formulas/ understanding 
+   * how the formula is used.
    */
   filterByFormula?: string;
   /**
-   * （选填）单元格值类型，默认为 'json'，指定为 'string' 时所有值都将被自动转换为 string 格式。
+   * (optional) cell value type, the default is 'json', 
+   * specified as 'string' all values will be automatically converted to string format.
    */
   cellFormat?: 'json' | 'string';
   /**
-   * （选填）指定 field 的查询和返回的 key。默认使用列名  'name' 。指定为 'id' 时将以 fieldId 作为查询和返回方式（使用 id 可以避免列名的修改导致代码失效问题）
+   * (Optional) Specify the query and return key for the field. default is 
+   * the column name 'name'. Specifying 'id' will use fieldId as the query and 
+   * return method (using id will avoid code failure due to column name changes).
    */
   fieldKey?: 'name' | 'id';
 }
@@ -64,13 +83,9 @@ export interface IGetRecordsReqParams {
 
 
 export interface IPaginateInfo<T> {
-  // 总记录条数
   total: number;
-  // 每页返回的记录总数
   pageSize: number;
-  // 分页的页码
   pageNum: number;
-
   records: T;
 }
 

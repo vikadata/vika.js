@@ -3,17 +3,17 @@ import { IAddOpenFieldProperty } from "./field.create.property";
 export interface IDatasheetFieldCreateRo {
 
     /**
-     * 字段名称
+     * Datasheet Name.
      */
     name: string;
 
     /**
-     * 字段类型，参照FieldType的枚举值
+     * Field type, refer to the enumeration value of FieldType.
      */
     type: string;
 
     /**
-     * 字段配置
+     * Field Configuration.
      */
     property?: IAddOpenFieldProperty | null;
 

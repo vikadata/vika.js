@@ -3,27 +3,27 @@ import { IDatasheetFieldCreateRo } from "./datasheet.field.create.ro";
 export interface IDatasheetCreateRo {
   
     /**
-     * 表格名称
+     * Datasheet Name.
      */
     name: string;
   
     /**
-     * 表格描述，仅支持纯文本
+     * Datasheet description, plain text only.
      */
     description?: string;
   
     /**
-     * 文件夹ID，如不填则为工作目录下
+     * Folder ID, if not filled in, it is under the working directory.
      */
     folderId?: string;
   
     /**
-     * 前一个节点ID，如不填则为首位
+     * Previous node ID, or first if not filled in.
      */
     preNodeId?: string;
   
     /**
-     * 需要创建的字段列表
+     * List of fields to be created.
      */
     fields?: IDatasheetFieldCreateRo[];
 

@@ -1,7 +1,7 @@
 import { RollUpFuncType } from '../enums';
 import { IField } from './field';
 /**
- * 字段属性
+ * Field property.
  */
 export interface ISingleTextFieldFieldProperty {
   defaultValue?: string;

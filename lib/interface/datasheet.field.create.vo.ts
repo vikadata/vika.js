@@ -1,11 +1,11 @@
 export interface IDatasheetFieldCreateVo {
 
   /**
-   * 字段ID
+   * Field ID.
    */
   id: string;
   /**
-   * 字段名称
+   * Field name.
    */
   name: string;
 

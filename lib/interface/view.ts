@@ -1,7 +1,7 @@
 import { ViewType } from '../enums';
 
 /**
- * 视图相关
+ * View interface
  */
 export interface IView {
   id: string;

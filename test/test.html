@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vika Browser Test</title>
-  <script src="../vika.browser.js"></script>
+  <title>APITable Browser Test</title>
+  <script src="../apitable.browser.js"></script>
 </head>
 
 <body>
@@ -16,10 +16,10 @@
     function print(r) {
       document.getElementById('V_CODE').innerText = JSON.stringify(r, null, 2);
     }
-    Vika.auth({
+    APITable.auth({
       token: "your api token",
     });
-    const datasheet = Vika.datasheet('datasheet id');
+    const datasheet = APITable.datasheet('datasheet id');
     datasheet.all().then(r => {
       print(r);
     });
@@ -28,11 +28,11 @@
     input.onchange = function () {
       const file = this.files[0];
       console.log('file', file);
-      // 浏览器中使用 input 元素得到文件。NodeJs 中可以传入一个 Buffer 或者 stream
+      // NodeJs can pass in a Buffer or stream to get the file using the input element in the browser.
       print('uplaoding');
       datasheet.upload(file).then(response => {
         /**
-         * response 数据包括
+         * response data
          *   success: boolean
          *   code: number
          *   message: string

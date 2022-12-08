@@ -3,16 +3,16 @@ import { IDatasheetFieldCreateVo } from "./datasheet.field.create.vo";
 export interface IDatasheetCreateVo {
 
     /**
-     * 字段ID
+     * Field ID.
      */
     id: string;
     /**
-     * 表格名称
+     * Datasheet Name.
      */
     name: string;
 
     /**
-     * 需要创建的字段列表
+     * List of fields to be created.
      */
     fields?: IDatasheetFieldCreateVo[];
 
