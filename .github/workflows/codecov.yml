@@ -5,29 +5,46 @@ name: Codecov CI
 
 on:
   push:
-    branches: [ "**" ]
+    branches: ["**"]
   pull_request:
-    branches: [ "**" ]
+    branches: ["**"]
 
 jobs:
   build:
+    defaults:
+      run:
+        shell: bash
     runs-on: ubuntu-latest
     environment: prod
     steps:
       - uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::node_modules"
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: set up env
         uses: actions/setup-node@v2
         with:
           node-version: 12
-          cache: 'yarn'
+
       - name: test and upload to codecov
         env:
-          VIKA_API_TOKEN: ${{ secrets.VIKA_API_TOKEN }}
-          VIKA_API_DATASHEET: ${{ secrets.VIKA_API_DATASHEET }}
+          DOMAIN: ${{ secrets.DOMAIN }}
+          TOKEN: ${{ secrets.TOKEN }}
+          DATASHEET_ID: ${{ secrets.DATASHEET_ID }}
+          FOLDER_ID: ${{ secrets.FOLDER_ID }}
+          SPACE_ID: ${{ secrets.SPACE_ID }}
         run: |
           yarn
           yarn test:coverage
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
           ./codecov
-
