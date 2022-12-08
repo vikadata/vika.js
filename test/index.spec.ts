@@ -3,7 +3,7 @@ import fs from "fs";
 import { Buffer } from "buffer";
 import path from "path";
 import { Vika } from "../lib";
-import { IDatasheetCreateRo, INodeItem, IRecord } from "../lib/interface";
+import { IDatasheetCreateRo, INodeItem, IRecord } from "apitable";
 import { IDatasheetFieldCreateRo } from "../lib/interface/datasheet.field.create.ro";
 import { IAddOpenSingleTextFieldProperty } from "../lib/interface/field.create.property";
 
