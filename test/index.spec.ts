@@ -176,4 +176,24 @@ describe('full pipeline', () => {
     expect(res.success).toBeTruthy();
   });
 
+  let embedId: string;
+
+  it('create embed link', async() => {
+    const res = await apitable.space(spaceId).datasheet(datasheetId).createEmbedLink();
+    expect(res.success).toBeTruthy();
+    embedId = res.data?.linkId || '';
+  })
+
+  it('get embed links', async() => {
+    const res = await apitable.space(spaceId).datasheet(datasheetId).getEmbedLinks();
+    const embedsLinks = res.data || []
+    expect(embedsLinks.some(v => v.linkId === embedId)).toBeTruthy();
+  })
+
+  it('delete embed link', async() => {
+    jest.advanceTimersByTime(100);
+    const res = await apitable.space(spaceId).datasheet(datasheetId).deleteEmbedLink(embedId);
+    expect(res.success).toBeTruthy();
+  })
+
 });
