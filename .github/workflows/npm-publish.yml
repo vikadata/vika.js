@@ -17,12 +17,13 @@ jobs:
         with:
           node-version: 12
       - name: run build
-        env: 
+        env:
           DOMAIN: ${{ secrets.DOMAIN }}
           TOKEN: ${{ secrets.TOKEN }}
           DATASHEET_ID: ${{ secrets.DATASHEET_ID }}
           FOLDER_ID: ${{ secrets.FOLDER_ID }}
           SPACE_ID: ${{ secrets.SPACE_ID }}
+          VIEW_ID: ${{ secrets.VIEW_ID }}
         run: |
           yarn
           yarn test
