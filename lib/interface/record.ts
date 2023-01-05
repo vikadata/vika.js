@@ -63,7 +63,7 @@ export interface IGetRecordsReqParams {
   fields?: string[];
   /**
    * (Optional) Use the formula as a filter condition to return matching records, 
-   * access https://help.apitable.com/tutorial-getting-started-with-formulas/ understanding 
+   * access https://help.vika.cn/tutorial-getting-started-with-formulas/ understanding 
    * how the formula is used.
    */
   filterByFormula?: string;
