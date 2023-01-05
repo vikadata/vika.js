@@ -38,7 +38,7 @@ export interface IHttpErrorResponse<T> {
 export type IHttpResponse<T = any> = IHttpSuccessResponse<T> | IHttpErrorResponse<T>;
 
 
-export interface IAPITableClientConfig {
+export interface IVikaClientConfig {
   /**
    * API Token
    */
