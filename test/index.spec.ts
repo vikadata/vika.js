@@ -5,6 +5,7 @@ import path from 'path';
 import { Vika } from '../lib';
 import { IDatasheetCreateRo, INodeItem, IRecord } from '../lib/interface';
 import { IDatasheetFieldCreateRo } from '../lib/interface/datasheet.field.create.ro';
+import { PermissionType, EmbedLinkTheme  } from '../lib/interface/embed.link';
 import { IAddOpenSingleTextFieldProperty } from '../lib/interface/field.create.property';
 
 env.config();
@@ -17,6 +18,7 @@ describe('full pipeline', () => {
   const datasheetId = process.env.DATASHEET_ID as string;
   const folderId = process.env.FOLDER_ID as string;
   const spaceId = process.env.SPACE_ID as string;
+  const viewId = process.env.VIEW_ID as string;
   
   const apitable = new Vika({
     token,
@@ -179,7 +181,29 @@ describe('full pipeline', () => {
   let embedId: string;
 
   it('create embed link', async() => {
-    const res = await apitable.space(spaceId).datasheet(datasheetId).createEmbedLink();
+    const embedLinkCreateRo = {
+      "paylod": {
+        "primarySideBar": { "collapsed": false },
+        "viewControl": {
+          "viewId": viewId,
+          "tabBar": false,
+          "toolBar": {
+            "basicTools": false,
+            "shareBtn": false,
+            "widgetBtn": false,
+            "apiBtn": false,
+            "formBtn": false,
+            "historyBtn": false,
+            "robotBtn": false,
+          },
+          "collapsed": false,
+        },
+        "bannerLogo": true,
+        "permissionType": PermissionType.READONLY,
+      },
+      "theme": EmbedLinkTheme.Light,
+    };
+    const res = await apitable.space(spaceId).datasheet(datasheetId).createEmbedLink(embedLinkCreateRo);
     expect(res.success).toBeTruthy();
     embedId = res.data?.linkId || '';
   })
