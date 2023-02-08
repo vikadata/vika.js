@@ -76,7 +76,11 @@ export enum IframeMessageName {
   SocketStatus = "socketStatus",
   SocketError = "socketError",
   ChangeView = "changeView",
-  ChangeNodeName = 'changeNodeName'
+  ChangeNodeName = 'changeNodeName',
+  PageLoaded = 'pageLoaded',
+  EmbedLinkFail = 'embedLinkFail',
+  PageCrash = 'pageCrash',
+  ChangeViewName = 'changeViewName'
 }
 
 export enum Network {

@@ -50,3 +50,24 @@ export interface IIframeMessageForChangeNodeName {
     nodeName: string;
   };
 }
+
+export interface IIframeMessageForPageLoaded {
+  message: IframeMessageName.PageLoaded;
+}
+
+export interface IIframeMessageForEmbedLinkFail {
+  message: IframeMessageName.EmbedLinkFail;
+}
+
+export interface IIframeMessageForPageCrash {
+  message: IframeMessageName.PageCrash;
+}
+
+export interface IIframeMessageForChangeViewName {
+  message: IframeMessageName.ChangeViewName;
+  data: {
+    roomId: string;
+    viewId: string;
+    viewName: string;
+  };
+}
