@@ -1,5 +1,5 @@
-import { IframeMessageName } from "./enums";
-import { IEventFunc } from "./interface/iframe";
+import { IframeMessageName, TriggerIframeMessageName } from "./enums";
+import { IEventFunc, ITriggerIframeMessage } from "./interface/iframe";
 
 declare let window: any;
 
@@ -62,5 +62,15 @@ export class IframeManager {
 
   unSubscribeAll() {
     this.event = new Map();
+  }
+
+  triggerEvent({ iframeRef, eventName, data }: ITriggerIframeMessage) {
+    iframeRef?.contentWindow?.postMessage(
+      {
+        msg: eventName,
+        data
+      },
+      '*',
+    );
   }
 }

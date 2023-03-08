@@ -1,4 +1,4 @@
-import { IframeMessageName, Network } from '../enums';
+import { IframeMessageName, Network, TriggerIframeMessageName } from '../enums';
 
 export type IEventFunc = (data: any) => void;
 
@@ -71,3 +71,26 @@ export interface IIframeMessageForChangeViewName {
     viewName: string;
   };
 }
+
+export interface IIframeMessageForTriggerEventResult {
+  message: IframeMessageName.TriggerEventResult;
+  data: {
+    success: boolean;
+    message?: string;
+  };
+}
+
+interface ITriggerIframeMessageBase {
+  iframeRef: any;
+  eventName: TriggerIframeMessageName;
+}
+
+export interface ITriggerIframeMessageForExportData extends ITriggerIframeMessageBase {
+  eventName: TriggerIframeMessageName.ExportData;
+  data: {
+    nodeId: string;
+    viewId?: string
+  };
+}
+
+export type ITriggerIframeMessage = ITriggerIframeMessageForExportData

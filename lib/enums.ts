@@ -80,7 +80,12 @@ export enum IframeMessageName {
   PageLoaded = 'pageLoaded',
   EmbedLinkFail = 'embedLinkFail',
   PageCrash = 'pageCrash',
-  ChangeViewName = 'changeViewName'
+  ChangeViewName = 'changeViewName',
+  TriggerEventResult = 'triggerEventResult',
+}
+
+export enum TriggerIframeMessageName {
+  ExportData = "exportData",
 }
 
 export enum Network {
