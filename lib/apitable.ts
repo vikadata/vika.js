@@ -7,7 +7,6 @@ import { IHttpResponse, IVikaClientConfig } from './interface';
 import { NodeManager } from './node';
 import { SpaceManager } from './space';
 import { mergeConfig, QPSController, isBrowser } from './utils';
-import { IframeManager } from './iframe';
 
 // axios.defaults.adapter = mpAdapter;
 export class Vika {
@@ -26,8 +25,8 @@ export class Vika {
       headers: {
         common: {
           ...(
-            this.config.disableClientUserAgent ? {} :
-              (isBrowser ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' })
+            this.config.disableClientUserAgent ? {} : 
+            (isBrowser ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' })
           ),
           Authorization: 'Bearer ' + config.token,
         }
@@ -102,12 +101,12 @@ export class Vika {
   /**
    * Resources - Number Table Management.
    * @param datasheetId Datasheet ID
-   * @returns
+   * @returns 
    */
   datasheet(datasheetId: string) {
     if (!datasheetId) {
       throw new Error(
-        'Please pass the dimension datasheet id, which can be retrieved from the dimension datasheet url, ' +
+        'Please pass the dimension datasheet id, which can be retrieved from the dimension datasheet url, ' + 
         'the dimension datasheet id usually starts with dst'
       );
     }
@@ -133,12 +132,5 @@ export class Vika {
    */
   space(spaceId: string) {
     return new SpaceManager(this, spaceId);
-  }
-
-  /**
-   * 获取 iframe 通信
-   */
-  getIframe() {
-    return new IframeManager();
   }
 }
