@@ -90,7 +90,11 @@ export interface ITriggerIframeMessageForExportData extends ITriggerIframeMessag
   eventName: TriggerIframeMessageName.ExportData;
   data: {
     nodeId: string;
-    viewId?: string
+    /**
+     * @default 'xlsx'
+     */
+    fileType?: 'csv' | 'xlsx' | 'png'
+    viewId?: string;
   };
 }
 
