@@ -75,6 +75,7 @@ export interface IIframeMessageForChangeViewName {
 export interface IIframeMessageForTriggerEventResult {
   message: IframeMessageName.TriggerEventResult;
   data: {
+    eventName: TriggerIframeMessageName;
     success: boolean;
     message?: string;
   };
