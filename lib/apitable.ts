@@ -1,22 +1,27 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from "axios";
 // import mpAdapter from 'axios-miniprogram-adapter';
-import qs from 'qs';
-import { DEFAULT_HOST, DEFAULT_REQUEST_TIMEOUT } from './const';
-import { Datasheet } from './datasheet';
-import { IHttpResponse, IVikaClientConfig } from './interface';
-import { NodeManager } from './node';
-import { SpaceManager } from './space';
-import { mergeConfig, QPSController, isBrowser } from './utils';
+import qs from "qs";
+import { DEFAULT_HOST, DEFAULT_REQUEST_TIMEOUT } from "./const";
+import { Datasheet } from "./datasheet";
+import { IHttpResponse, IVikaClientConfig } from "./interface";
+import { NodeManager } from "./node";
+import { SpaceManager } from "./space";
+import { mergeConfig, QPSController, isBrowser } from "./utils";
 
 // axios.defaults.adapter = mpAdapter;
 export class Vika {
   config: IVikaClientConfig;
   axios: AxiosInstance;
-  static QPSMap = new Map<string, { count: number, lastReqTimestamp: number }>();
+  static QPSMap = new Map<
+    string,
+    { count: number; lastReqTimestamp: number }
+  >();
 
   constructor(config: IVikaClientConfig) {
     if (!config?.token) {
-      throw new Error('Please pass in the API Token.(登录 vika.cn 在左下角用户中心获取)');
+      throw new Error(
+        "Please pass in the API Token.(登录 vika.cn 在左下角用户中心获取)"
+      );
     }
     this.config = mergeConfig(config);
     this.axios = axios.create({
@@ -24,16 +29,17 @@ export class Vika {
       timeout: config.requestTimeout || DEFAULT_REQUEST_TIMEOUT,
       headers: {
         common: {
-          ...(
-            this.config.disableClientUserAgent ? {} : 
-            (isBrowser ? { 'X-Vika-User-Agent': 'VikaJSSDK' } : { 'User-Agent': 'VikaJSSDK' })
-          ),
-          Authorization: 'Bearer ' + config.token,
-        }
+          ...(this.config.disableClientUserAgent
+            ? {}
+            : isBrowser
+            ? { "X-Vika-User-Agent": "VikaJSSDK" }
+            : { "User-Agent": "VikaJSSDK" }),
+          Authorization: "Bearer " + config.token,
+        },
       },
-      paramsSerializer: params => {
+      paramsSerializer: (params) => {
         // TODO: Support for more stringify configurations.
-        const result = qs.stringify(params, { arrayFormat: 'brackets' });
+        const result = qs.stringify(params, { arrayFormat: "brackets" });
         // console.log('paramsSerializer after', result);
         return result;
       },
@@ -44,7 +50,7 @@ export class Vika {
     }
 
     // open it for debug
-    this.axios.interceptors.request.use(request => {
+    this.axios.interceptors.request.use((request) => {
       // console.log('Starting Request: ', request.method, {
       //   url: request.url,
       //   params: request.params,
@@ -54,7 +60,7 @@ export class Vika {
     });
     this.axios.interceptors.request.use(QPSController());
 
-    this.axios.interceptors.response.use(response => {
+    this.axios.interceptors.response.use((response) => {
       // console.log('Response:', response.data);
       return response;
     });
@@ -62,37 +68,43 @@ export class Vika {
 
   async request<T>(config: {
     path: string;
-    params?: any,
-    method: 'get' | 'post' | 'patch' | 'delete',
-    data?: { [key: string]: any },
+    params?: any;
+    method: "get" | "post" | "patch" | "delete";
+    data?: { [key: string]: any };
     headers?: any;
     timeout?: number;
   }): Promise<IHttpResponse<T>> {
     const { path, params, method, data, headers, timeout } = config;
     let result: IHttpResponse<T>;
     try {
-      result = (await this.axios.request<IHttpResponse<T>>({
-        timeout,
-        url: path,
-        method,
-        params: {
-          fieldKey: this.config.fieldKey,
-          ...params,
-        },
-        data,
-        headers,
-      })).data;
+      result = (
+        await this.axios.request<IHttpResponse<T>>({
+          timeout,
+          url: path,
+          method,
+          params: {
+            fieldKey: this.config.fieldKey,
+            ...params,
+          },
+          data,
+          headers,
+        })
+      ).data;
     } catch (e) {
       const error = e?.response?.data || e;
-      result = {
-        success: false,
-        code: error?.code || 500,
-        message: error?.message || 'Request parameter misconfiguration',
-      };
+      if (error?.code && error?.message) {
+        result = {
+          success: false,
+          code: error!.code,
+          message: error!.message,
+        };
+      } else {
+        throw e;
+      }
     }
 
     if (!result.success) {
-      console.error('Request an error: ', result);
+      console.error("Request an error: ", result);
     }
 
     return result;
@@ -101,16 +113,16 @@ export class Vika {
   /**
    * Resources - Number Table Management.
    * @param datasheetId Datasheet ID
-   * @returns 
+   * @returns
    */
   datasheet(datasheetId: string) {
     if (!datasheetId) {
       throw new Error(
-        'Please pass the dimension datasheet id, which can be retrieved from the dimension datasheet url, ' + 
-        'the dimension datasheet id usually starts with dst'
+        "Please pass the dimension datasheet id, which can be retrieved from the dimension datasheet url, " +
+          "the dimension datasheet id usually starts with dst"
       );
     }
-    return new Datasheet('', datasheetId, this);
+    return new Datasheet("", datasheetId, this);
   }
 
   /**
