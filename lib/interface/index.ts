@@ -17,6 +17,7 @@ export interface IAttachment {
   mimeType: string; // Attachment type.
   bucket: string; // Upload Location.
   preview?: string; // Preview image.
+  url?: string; // Attachment link
 }
 
 

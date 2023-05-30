@@ -154,7 +154,7 @@ describe('full pipeline', () => {
       folderId
     };
     const res = await apitable.space(spaceId).datasheets.create(ro);
-    expect(res.success).toBeTruthy();
+    expect({ success: res.success, message: res.message }).toBeTruthy();
     createdDatasheetId = res.data?.id||'';
   });
 
