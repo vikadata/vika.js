@@ -118,8 +118,8 @@ export class Vika {
   datasheet(datasheetId: string) {
     if (!datasheetId) {
       throw new Error(
-        "Please pass the dimension datasheet id, which can be retrieved from the dimension datasheet url, " +
-          "the dimension datasheet id usually starts with dst"
+        'Please pass the datasheet id, which can be retrieved from the datasheet url, ' + 
+        'the datasheet id usually starts with dst, for example dstRzy7alM1mkuy1Y3'
       );
     }
     return new Datasheet("", datasheetId, this);
