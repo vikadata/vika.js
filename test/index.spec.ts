@@ -147,6 +147,12 @@ describe('full pipeline', () => {
     expect(result.success).toBeTruthy();
     expect(result.data?.id).toEqual(firstNode.id);
   });
+  // nodes search 
+  it('search node', async () => {
+    const firstNode = nodes[0];
+    const result = await apitable.nodes.search({ spaceId: spaceIds[0], type: firstNode.type, query: firstNode.name });
+    expect(result.success).toBeTruthy();
+  });
 
   it('create datasheet', async () => {
     const ro: IDatasheetCreateRo = {

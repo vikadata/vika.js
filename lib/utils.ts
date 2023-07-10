@@ -87,4 +87,10 @@ export const mergeConfig = (config: IVikaClientConfig): IVikaClientConfig => {
   return { ...DEFAULT_CONFIG, ...config };
 };
 
+export const subBeforeIfHaving = (str: string | undefined, searchString: string): string | undefined => {
+  if (!str) return undefined;
+  const pos = str.indexOf(searchString);
+  return pos == -1 ? str : str.slice(0, pos);
+}
+
 export const isBrowser = typeof window !== 'undefined';

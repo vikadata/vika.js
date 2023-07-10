@@ -1,12 +1,12 @@
 import axios, { AxiosInstance } from "axios";
 // import mpAdapter from 'axios-miniprogram-adapter';
 import qs from "qs";
-import { DEFAULT_HOST, DEFAULT_REQUEST_TIMEOUT } from "./const";
+import { DEFAULT_HOST, DEFAULT_REQUEST_TIMEOUT, DEFAULT_VERSION_PREFIX, FUSION_PATH_PREFIX } from "./const";
 import { Datasheet } from "./datasheet";
 import { IHttpResponse, IVikaClientConfig } from "./interface";
 import { NodeManager } from "./node";
 import { SpaceManager } from "./space";
-import { mergeConfig, QPSController, isBrowser } from "./utils";
+import { mergeConfig, QPSController, isBrowser, subBeforeIfHaving } from "./utils";
 
 // axios.defaults.adapter = mpAdapter;
 export class Vika {
@@ -25,7 +25,7 @@ export class Vika {
     }
     this.config = mergeConfig(config);
     this.axios = axios.create({
-      baseURL: config.host || DEFAULT_HOST,
+      baseURL: subBeforeIfHaving(config.host, FUSION_PATH_PREFIX) || DEFAULT_HOST,
       timeout: config.requestTimeout || DEFAULT_REQUEST_TIMEOUT,
       headers: {
         common: {
@@ -80,7 +80,7 @@ export class Vika {
       result = (
         await this.axios.request<IHttpResponse<T>>({
           timeout,
-          url: path,
+          url: path.includes(FUSION_PATH_PREFIX) ? path : DEFAULT_VERSION_PREFIX.concat(path),
           method,
           params: {
             fieldKey: this.config.fieldKey,

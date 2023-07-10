@@ -1,4 +1,4 @@
-import { IGetNodeListResponseData, IGetNodeListReqParams, IGetNodeDetailReqParams, IGetNodeDetailResponseData } from './interface';
+import { IGetNodeListResponseData, IGetNodeListReqParams, IGetNodeDetailReqParams, IGetNodeDetailResponseData, ISearchNodeListReqParams, ISearchNodeListResponseData } from './interface';
 import { Vika } from './apitable';
 
 export class NodeManager {
@@ -24,6 +24,16 @@ export class NodeManager {
     return this.apitable.request<T>({
       path: `/spaces/${params.spaceId}/nodes/${params.nodeId}`,
       method: 'get',
+    });
+  }
+  /**
+   * Search Nodes.
+   */
+  async search<T = ISearchNodeListResponseData>(params: ISearchNodeListReqParams) {
+    return this.apitable.request<T>({
+      path: `/fusion/v2/spaces/${params.spaceId}/nodes`,
+      method: 'get',
+      params,
     });
   }
 }
