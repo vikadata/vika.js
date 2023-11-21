@@ -1,12 +1,12 @@
 import env from 'dotenv';
 import fs from 'fs';
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 import path from 'path';
-import {Vika} from '../lib';
-import {IDatasheetCreateRo, INodeItem, IRecord} from '../lib/interface';
-import {IDatasheetFieldCreateRo} from '../lib/interface/datasheet.field.create.ro';
-import {EmbedLinkTheme, PermissionType} from '../lib/interface/embed.link';
-import {IAddOpenSingleTextFieldProperty} from '../lib/interface/field.create.property';
+import { Vika } from '../lib';
+import { IDatasheetCreateRo, INodeItem, IRecord } from '../lib/interface';
+import { IDatasheetFieldCreateRo } from '../lib/interface/datasheet.field.create.ro';
+import { PermissionType, EmbedLinkTheme  } from '../lib/interface/embed.link';
+import { IAddOpenSingleTextFieldProperty } from '../lib/interface/field.create.property';
 
 env.config();
 
@@ -19,11 +19,7 @@ describe('full pipeline', () => {
   const folderId = process.env.FOLDER_ID as string;
   const spaceId = process.env.SPACE_ID as string;
   const viewId = process.env.VIEW_ID as string;
-
-  console.log({
-    host, token, datasheetId, folderId, spaceId, viewId
-  });
-
+  
   const apitable = new Vika({
     token,
     host,
@@ -57,7 +53,7 @@ describe('full pipeline', () => {
   // Read the initial.
   it('list records', async () => {
     console.time('list records');
-    const result = await datasheet.records.query({sort: [{field: 'Title', order: 'desc'}]});
+    const result = await datasheet.records.query({ sort: [{ field: 'Title', order: 'desc' }] });
     console.timeEnd('list records');
     if (!result.success) {
       console.error(result);
@@ -114,7 +110,7 @@ describe('full pipeline', () => {
   it('upload buffer attachment', async () => {
     const buf = Buffer.from('hello world', 'utf8');
     console.time('upload attachment');
-    const result = await datasheet.upload(buf, {filename: 'text.txt'});
+    const result = await datasheet.upload(buf, { filename: 'text.txt' });
     if (!result.success) {
       console.error(result);
     }
@@ -138,23 +134,23 @@ describe('full pipeline', () => {
     expect(result.success).toBeTruthy();
     spaceIds = result.data!.spaces.map(item => item.id);
   });
-  // nodes list
+  // nodes list 
   it('get node list', async () => {
-    const result = await apitable.nodes.list({spaceId: spaceIds[0]});
+    const result = await apitable.nodes.list({ spaceId: spaceIds[0] });
     expect(result.success).toBeTruthy();
     nodes = result.data!.nodes;
   });
   // node detail
   it('get node detail', async () => {
     const firstNode = nodes[0];
-    const result = await apitable.nodes.get({spaceId: spaceIds[0], nodeId: firstNode.id});
+    const result = await apitable.nodes.get({ spaceId: spaceIds[0], nodeId: firstNode.id });
     expect(result.success).toBeTruthy();
     expect(result.data?.id).toEqual(firstNode.id);
   });
-  // nodes search
+  // nodes search 
   it('search node', async () => {
     const firstNode = nodes[0];
-    const result = await apitable.nodes.search({spaceId: spaceIds[0], type: firstNode.type, query: firstNode.name});
+    const result = await apitable.nodes.search({ spaceId: spaceIds[0], type: firstNode.type, query: firstNode.name });
     expect(result.success).toBeTruthy();
   });
 
@@ -164,8 +160,8 @@ describe('full pipeline', () => {
       folderId
     };
     const res = await apitable.space(spaceId).datasheets.create(ro);
-    expect({success: res.success, message: res.message}).toBeTruthy();
-    createdDatasheetId = res.data?.id || '';
+    expect({ success: res.success, message: res.message }).toBeTruthy();
+    createdDatasheetId = res.data?.id||'';
   });
 
   it('create field', async () => {
@@ -180,7 +176,7 @@ describe('full pipeline', () => {
     const res = await apitable.space(spaceId).datasheet(createdDatasheetId).fields.create(ro);
     expect(res.success).toBeTruthy();
     expect(res.data?.id).toBeDefined();
-    createdFieldId = res.data?.id || '';
+    createdFieldId = res.data?.id||'';
   });
 
   it('delete field', async () => {
@@ -190,10 +186,10 @@ describe('full pipeline', () => {
 
   let embedId: string;
 
-  it('create embed link', async () => {
+  it('create embed link', async() => {
     const embedLinkCreateRo = {
       "paylod": {
-        "primarySideBar": {"collapsed": false},
+        "primarySideBar": { "collapsed": false },
         "viewControl": {
           "viewId": viewId,
           "tabBar": false,
@@ -218,13 +214,13 @@ describe('full pipeline', () => {
     embedId = res.data?.linkId || '';
   })
 
-  it('get embed links', async () => {
+  it('get embed links', async() => {
     const res = await apitable.space(spaceId).datasheet(datasheetId).getEmbedLinks();
     const embedsLinks = res.data || []
     expect(embedsLinks.some(v => v.linkId === embedId)).toBeTruthy();
   })
 
-  it('delete embed link', async () => {
+  it('delete embed link', async() => {
     jest.advanceTimersByTime(100);
     const res = await apitable.space(spaceId).datasheet(datasheetId).deleteEmbedLink(embedId);
     expect(res.success).toBeTruthy();
