@@ -70,3 +70,27 @@ export enum APIMetaFieldPropertyFormatEnums {
   Percent = 'Percent',
   Currency = 'Currency',
 }
+
+export enum IframeMessageName {
+  Collaborators = "collaborators",
+  SocketStatus = "socketStatus",
+  SocketError = "socketError",
+  ChangeView = "changeView",
+  ChangeNodeName = 'changeNodeName',
+  PageLoaded = 'pageLoaded',
+  EmbedLinkFail = 'embedLinkFail',
+  PageCrash = 'pageCrash',
+  ChangeViewName = 'changeViewName',
+  TriggerEventResult = 'triggerEventResult',
+}
+
+export enum TriggerIframeMessageName {
+  ExportData = "exportData",
+}
+
+export enum Network {
+  Online = "online",
+  Offline = "offline",
+  Sync = "sync",
+  Loading = "loading"
+}

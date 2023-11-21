@@ -7,6 +7,7 @@ import { IHttpResponse, IVikaClientConfig } from "./interface";
 import { NodeManager } from "./node";
 import { SpaceManager } from "./space";
 import { mergeConfig, QPSController, isBrowser, subBeforeIfHaving } from "./utils";
+import {IframeManager} from "./iframe";
 
 // axios.defaults.adapter = mpAdapter;
 export class Vika {
@@ -118,7 +119,7 @@ export class Vika {
   datasheet(datasheetId: string) {
     if (!datasheetId) {
       throw new Error(
-        'Please pass the datasheet id, which can be retrieved from the datasheet url, ' + 
+        'Please pass the datasheet id, which can be retrieved from the datasheet url, ' +
         'the datasheet id usually starts with dst, for example dstRzy7alM1mkuy1Y3'
       );
     }
@@ -144,5 +145,12 @@ export class Vika {
    */
   space(spaceId: string) {
     return new SpaceManager(this, spaceId);
+  }
+
+  /**
+   * 获取 iframe 通信
+   */
+  getIframe() {
+    return new IframeManager();
   }
 }
