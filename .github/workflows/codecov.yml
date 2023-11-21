@@ -8,6 +8,16 @@ on:
     branches: ["**"]
   pull_request:
     branches: ["**"]
+  workflow_dispatch:
+    inputs:
+      arch:
+        type: choice
+        description: runner arch
+        options:
+          - X64
+          - ARM64
+        required: true
+        default: X64
 
 jobs:
   build:
