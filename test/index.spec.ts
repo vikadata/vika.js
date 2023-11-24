@@ -39,6 +39,8 @@ describe('full pipeline', () => {
       host,
       fieldKey: 'id',
     });
+
+    console.log('api version is v3 ', apitable.isV3());
     const datasheet = apitable.datasheet(datasheetId);
     console.time('list records');
     const result = await datasheet.records.query();

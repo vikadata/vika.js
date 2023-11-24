@@ -145,4 +145,8 @@ export class Vika {
   space(spaceId: string) {
     return new SpaceManager(this, spaceId);
   }
+
+  public isV3() {
+    return true;
+  }
 }
