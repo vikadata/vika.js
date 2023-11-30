@@ -33,8 +33,8 @@ describe('full pipeline', () => {
             isV3: true
         });
         const allRecords2 = await datasheet.records.query();
-        console.log(' see result', allRecords);
-        console.log(' see result2', allRecords2);
+        // console.log(' see result', allRecords);
+        // console.log(' see result2', allRecords2);
     });
 
 });
