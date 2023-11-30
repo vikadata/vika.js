@@ -15,26 +15,26 @@ describe('full pipeline', () => {
     const spaceId = process.env.SPACE_ID as string;
     const viewId = process.env.VIEW_ID as string;
 
-    // const apitable = new Vika({
-    //     token,
-    //     host,
-    // });
-    //
-    // const datasheet = apitable.datasheet(datasheetId);
-    //
-    // let records: IRecord[];
-    // let spaceIds: string[];
-    // let nodes: INodeItem[];
-    // let createdDatasheetId: string;
-    // let createdFieldId: string;
-    //
-    // it('get records', async () => {
-    //     const allRecords = await datasheet.records.query({
-    //         isV3: true
-    //     });
-    //     const allRecords2 = await datasheet.records.query();
-    //     console.log(' see result', allRecords);
-    //     console.log(' see result2', allRecords2);
-    // });
+    const apitable = new Vika({
+        token,
+        host,
+    });
+
+    const datasheet = apitable.datasheet(datasheetId);
+
+    let records: IRecord[];
+    let spaceIds: string[];
+    let nodes: INodeItem[];
+    let createdDatasheetId: string;
+    let createdFieldId: string;
+
+    it('get records', async () => {
+        const allRecords = await datasheet.records.query({
+            isV3: true
+        });
+        const allRecords2 = await datasheet.records.query();
+        console.log(' see result', allRecords);
+        console.log(' see result2', allRecords2);
+    });
 
 });
