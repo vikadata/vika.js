@@ -82,7 +82,7 @@ export interface IGetRecordsReqParams {
   /**
    * use databus fusion api
    * */
-  isV3: boolean;
+  isV3?: boolean;
 }
 
 
