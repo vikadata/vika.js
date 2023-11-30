@@ -78,6 +78,11 @@ export interface IGetRecordsReqParams {
    * return method (using id will avoid code failure due to column name changes).
    */
   fieldKey?: 'name' | 'id';
+
+  /**
+   * use databus fusion api
+   * */
+  isV3: boolean;
 }
 
 
