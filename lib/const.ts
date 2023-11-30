@@ -7,6 +7,7 @@ export const DST_MAX_RECORDS = 50000; // Maximum number of records in a single d
 export const DEFAULT_HOST = 'https://api.vika.cn';
 export const FUSION_PATH_PREFIX = '/fusion';
 export const DEFAULT_VERSION_PREFIX = '/fusion/v1';
+export const DATA_BUS_VERSION_PREFIX = '/fusion/v3';
 export const DEFAULT_REQUEST_TIMEOUT = 60000;
 export const MAX_WRITE_SIZE_PER_REQ = 10;
 
