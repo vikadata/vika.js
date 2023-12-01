@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 // import mpAdapter from 'axios-miniprogram-adapter';
 import qs from "qs";
-import { DEFAULT_HOST, DEFAULT_REQUEST_TIMEOUT, DEFAULT_VERSION_PREFIX, FUSION_PATH_PREFIX } from "./const";
+import { DEFAULT_HOST, DEFAULT_REQUEST_TIMEOUT, DATA_BUS_VERSION_PREFIX, DEFAULT_VERSION_PREFIX, FUSION_PATH_PREFIX } from "./const";
 import { Datasheet } from "./datasheet";
 import { IHttpResponse, IVikaClientConfig } from "./interface";
 import { NodeManager } from "./node";
@@ -75,12 +75,18 @@ export class Vika {
     timeout?: number;
   }): Promise<IHttpResponse<T>> {
     const { path, params, method, data, headers, timeout } = config;
+    let urlPath = '';
+    if (params?.isV3){
+      urlPath = path.includes(FUSION_PATH_PREFIX) ? path : DATA_BUS_VERSION_PREFIX.concat(path);
+    }else {
+      urlPath = path.includes(FUSION_PATH_PREFIX) ? path : DEFAULT_VERSION_PREFIX.concat(path);
+    }
     let result: IHttpResponse<T>;
     try {
       result = (
         await this.axios.request<IHttpResponse<T>>({
           timeout,
-          url: path.includes(FUSION_PATH_PREFIX) ? path : DEFAULT_VERSION_PREFIX.concat(path),
+          url: urlPath,
           method,
           params: {
             fieldKey: this.config.fieldKey,
@@ -144,5 +150,9 @@ export class Vika {
    */
   space(spaceId: string) {
     return new SpaceManager(this, spaceId);
+  }
+
+  public isV3() {
+    return true;
   }
 }
