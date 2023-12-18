@@ -1,4 +1,4 @@
-import { IframeMessageName, Network, TriggerIframeMessageName } from '../enums';
+import { IframeMessageName, Network, TriggerIframeMessageName } from "../enums";
 
 export type IEventFunc = (data: any) => void;
 
@@ -13,6 +13,7 @@ export interface IIframeMessageForCollaborators {
 interface ICollaborator {
   name: string;
   avatar: string;
+  userId: string;
 }
 
 export interface IIframeMessageForSocketStatus {
@@ -86,16 +87,17 @@ interface ITriggerIframeMessageBase {
   eventName: TriggerIframeMessageName;
 }
 
-export interface ITriggerIframeMessageForExportData extends ITriggerIframeMessageBase {
+export interface ITriggerIframeMessageForExportData
+  extends ITriggerIframeMessageBase {
   eventName: TriggerIframeMessageName.ExportData;
   data: {
     nodeId: string;
     /**
      * @default 'xlsx'
      */
-    fileType?: 'csv' | 'xlsx' | 'png'
+    fileType?: "csv" | "xlsx" | "png";
     viewId?: string;
   };
 }
 
-export type ITriggerIframeMessage = ITriggerIframeMessageForExportData
+export type ITriggerIframeMessage = ITriggerIframeMessageForExportData;
