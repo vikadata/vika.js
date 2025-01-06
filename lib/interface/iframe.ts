@@ -82,6 +82,14 @@ export interface IIframeMessageForTriggerEventResult {
   };
 }
 
+export interface IIframeMessageForTriggerMirrorList {
+  message: IframeMessageName.TriggerMirrorList;
+  data: {
+    nodeId:string;
+    viewId: string;
+  };
+}
+
 interface ITriggerIframeMessageBase {
   iframeRef: any;
   eventName: TriggerIframeMessageName;

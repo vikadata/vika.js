@@ -82,6 +82,7 @@ export enum IframeMessageName {
   PageCrash = 'pageCrash',
   ChangeViewName = 'changeViewName',
   TriggerEventResult = 'triggerEventResult',
+  TriggerMirrorList = 'triggerMirrorList',
 }
 
 export enum TriggerIframeMessageName {

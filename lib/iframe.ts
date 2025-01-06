@@ -64,6 +64,8 @@ export class IframeManager {
     this.event = new Map();
   }
 
+  // 看起来，这个方法应该是 embed 的容器向 iframe 发送消息
+  // 比如说，页面有一个 export csv 的按钮，点击后，触发 vika 内部的导出操作
   triggerEvent({ iframeRef, eventName, data }: ITriggerIframeMessage) {
     iframeRef?.contentWindow?.postMessage(
       {
