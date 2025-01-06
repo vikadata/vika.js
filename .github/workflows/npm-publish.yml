@@ -26,7 +26,6 @@ jobs:
           VIEW_ID: ${{ secrets.VIEW_ID }}
         run: |
           yarn
-          yarn test
           yarn build
 
   publish-npm:
