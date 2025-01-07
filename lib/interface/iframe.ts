@@ -82,11 +82,12 @@ export interface IIframeMessageForTriggerEventResult {
   };
 }
 
-export interface IIframeMessageForTriggerMirrorList {
-  message: IframeMessageName.TriggerMirrorList;
+export interface IIframeMessageForMirrorBtnClick {
+  message: IframeMessageName.MirrorBtnClick;
   data: {
-    nodeId:string;
-    viewId: string;
+    nodeId: string;
+    url: string;
+    e: any;
   };
 }
 
